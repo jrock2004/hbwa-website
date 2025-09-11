@@ -1,0 +1,17 @@
+[build]
+command = "pnpm build" # or "npm run build" / "yarn build"
+publish = "dist"
+
+# Set a Node version to match local (optional but avoids surprises)
+[build.environment]
+NODE_VERSION = "20"
+
+# Production-only overrides (optional)
+[context.production]
+command = "pnpm build"
+
+# SPA fallback (alternative to _redirects if you prefer TOML)
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
