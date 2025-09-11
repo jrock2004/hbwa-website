@@ -1,19 +1,33 @@
+export const ROUTES = {
+  alerts: "/alerts",
+  waterQuality: "/water-quality",
+  rates: "/rates",
+  documents: "/documents",
+  contact: "/contact",
+  governance: "/governance",
+  policies: "/policies",
+  newsletters: "/newsletters",
+  conservation: "/conservation",
+  links: "/links",
+  gallery: "/gallery",
+};
+
 export const primary: NavItem[] = [
   { to: "/", label: "Home", exact: true },
-  { to: "/alerts", label: "Alerts" },
-  { to: "/water-quality", label: "Water Quality" },
-  { to: "/rates", label: "Rates" },
-  { to: "/documents", label: "Documents" },
-  { to: "/contact", label: "Contact" },
+  { to: ROUTES.alerts, label: "Alerts" },
+  { to: ROUTES.waterQuality, label: "Water Quality" },
+  { to: ROUTES.rates, label: "Rates" },
+  { to: ROUTES.documents, label: "Documents" },
+  { to: ROUTES.contact, label: "Contact" },
 ];
 
 export const more: NavItem[] = [
-  { to: "/governance", label: "Governance" },
-  { to: "/policies", label: "Policies" },
-  { to: "/newsletters", label: "Newsletters" },
-  { to: "/conservation", label: "Conservation" },
-  { to: "/links", label: "Links" },
-  { to: "/gallery", label: "Gallery" },
+  { to: ROUTES.governance, label: "Governance" },
+  { to: ROUTES.policies, label: "Policies" },
+  { to: ROUTES.newsletters, label: "Newsletters" },
+  { to: ROUTES.conservation, label: "Conservation" },
+  { to: ROUTES.links, label: "Links" },
+  { to: ROUTES.gallery, label: "Gallery" },
 ];
 
 export type NavItem = { to: string; label: string; exact?: boolean };

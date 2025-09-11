@@ -21,6 +21,7 @@
     background-color: hsl(var(--brand));
     color: hsl(var(--brand-foreground));
   }
+
   .btn-primary:hover {
     opacity: 0.9;
   }
@@ -28,6 +29,7 @@
   .btn-ghost {
     border-color: hsl(var(--border));
   }
+
   .btn-ghost:hover {
     background-color: hsl(var(--muted));
   }
