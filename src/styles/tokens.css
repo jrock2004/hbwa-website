@@ -1,5 +1,5 @@
 :root {
-  --brand: 36 100% 45%; /* primary hue in HSL */
+  --brand: 203, 92%, 19%, 1; /* primary hue in HSL */
   --brand-foreground: 0 0% 100%;
 
   --background: 0 0% 100%;
