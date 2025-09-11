@@ -1,0 +1,14 @@
+# deps & builds
+node_modules
+dist
+build
+.storybook-out
+storybook-static
+coverage
+.vite
+.turbo
+.pnpm-store
+
+# assets
+public/og*.jpg
+*.min.js

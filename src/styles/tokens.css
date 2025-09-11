@@ -1,0 +1,72 @@
+:root {
+  --brand: 36 100% 45%; /* primary hue in HSL */
+  --brand-foreground: 0 0% 100%;
+
+  --background: 0 0% 100%;
+  --foreground: 222 47% 11%;
+
+  --muted: 220 14% 96%;
+  --muted-foreground: 215 16% 47%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: var(--brand);
+}
+
+html.dark {
+  --background: 222 47% 11%;
+  --foreground: 210 40% 98%;
+
+  --muted: 217 33% 17%;
+  --muted-foreground: 215 20% 65%;
+
+  --card: 222 47% 13%;
+  --card-foreground: 210 40% 98%;
+
+  --border: 217 33% 22%;
+  --input: 217 33% 22%;
+  --ring: var(--brand);
+}
+
+/* Expose Tailwind-friendly semantic colors using arbitrary values */
+:root,
+html.dark {
+  --radius: 0.75rem;
+}
+
+/* Map semantic tokens to utility-friendly custom properties */
+.bg-background {
+  background-color: hsl(var(--background));
+}
+.text-foreground {
+  color: hsl(var(--foreground));
+}
+.bg-card {
+  background-color: hsl(var(--card));
+}
+.text-card-foreground {
+  color: hsl(var(--card-foreground));
+}
+.border-border {
+  border-color: hsl(var(--border));
+}
+.bg-muted {
+  background-color: hsl(var(--muted));
+}
+.text-muted-foreground {
+  color: hsl(var(--muted-foreground));
+}
+
+/* Brand */
+.bg-brand {
+  background-color: hsl(var(--brand));
+}
+.text-brand-foreground {
+  color: hsl(var(--brand-foreground));
+}
+.ring-brand {
+  --tw-ring-color: hsl(var(--ring));
+}

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" class="bg-background text-foreground">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Title is a fallback; routes will override -->
+    <title>Honey Brook Water Authority</title>
+
+    <!-- Descriptive fallback (routes override) -->
+    <meta
+      name="description"
+      content="Safe, reliable municipal water service for Honey Brook and surrounding communities. View service alerts, billing, and public documents."
+    />
+
+    <!-- Robots: allow indexing -->
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- Theme color per color scheme -->
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b1220" />
+
+    <!-- Canonical (will be refined per route via Helmet) -->
+    <link rel="canonical" href="https://www.example.gov/" />
+
+    <!-- Social (fallbacks; routes override title/description/url) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Honey Brook Water Authority" />
+    <meta property="og:title" content="Honey Brook Water Authority" />
+    <meta
+      property="og:description"
+      content="Safe, reliable municipal water service for Honey Brook and surrounding communities. View service alerts, billing, and public documents."
+    />
+    <meta property="og:url" content="https://www.hbbawater.com/" />
+    <meta property="og:image" content="https://www.example.gov/og.jpg" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0b1220" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
