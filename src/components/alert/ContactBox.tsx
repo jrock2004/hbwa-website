@@ -5,8 +5,9 @@ export function ContactBox() {
   const phone = data?.contact.phone || "(610) 273-7830";
   // Remove non-digit characters for tel: link
   const phoneHref = `tel:${phone.replace(/[^\d+]/g, "")}`;
+
   return (
-    <aside className="bg-card text-card-foreground rounded-2xl border p-4 shadow-sm">
+    <aside className="bg-card text-card-foreground rounded-2xl border p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.04] dark:shadow-none">
       <h3 className="text-base font-semibold">Report an Emergency</h3>
       <p className="mt-1 text-sm">
         Call our main office at{" "}

@@ -66,7 +66,7 @@ export default function AlertsRoute() {
             <MegaphoneIcon className="h-6 w-6" aria-hidden />
             <h1 className="text-2xl font-bold tracking-tight">Alerts</h1>
           </div>
-          <p className="text-muted-foreground mt-2 max-w-prose text-sm">
+          <p className="text-muted-foreground dark:text-foreground/80 mt-2 max-w-prose text-sm">
             This page consolidates all Emergency and Non-Emergency notices in one place, replacing
             the separate pages. It updates as soon as we post new information.
           </p>
@@ -76,7 +76,12 @@ export default function AlertsRoute() {
           <main className="space-y-8 lg:col-span-2">
             <section aria-labelledby="active-emergencies">
               <SectionHeader
-                icon={<ExclamationTriangleIcon className="h-5 w-5 text-red-600" aria-hidden />}
+                icon={
+                  <ExclamationTriangleIcon
+                    className="h-5 w-5 text-red-600 dark:text-red-400"
+                    aria-hidden
+                  />
+                }
                 title="Active Emergencies"
                 subtitle={activeEmerg.length ? undefined : "None at this time."}
               />
@@ -89,7 +94,12 @@ export default function AlertsRoute() {
 
             <section aria-labelledby="active-notices">
               <SectionHeader
-                icon={<InformationCircleIcon className="h-5 w-5 text-amber-600" aria-hidden />}
+                icon={
+                  <InformationCircleIcon
+                    className="h-5 w-5 text-amber-600 dark:text-amber-400"
+                    aria-hidden
+                  />
+                }
                 title="Active Non‑Emergency Notices"
                 subtitle={activeNotices.length ? undefined : "None at this time."}
               />
@@ -119,14 +129,14 @@ export default function AlertsRoute() {
           <div className="space-y-6">
             <ContactBox />
 
-            <aside className="bg-card text-card-foreground rounded-2xl border p-4 shadow-sm">
+            <aside className="bg-card text-card-foreground rounded-2xl border p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
               <h3 className="text-base font-semibold">Get Updates</h3>
               <p className="text-muted-foreground mt-1 text-sm">
                 Coming soon: email and text signup. For now, check this page or call the office.
               </p>
             </aside>
 
-            <aside className="bg-card text-card-foreground rounded-2xl border p-4 shadow-sm">
+            <aside className="bg-card text-card-foreground rounded-2xl border p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
               <h3 className="text-base font-semibold">About Alerts</h3>
               <ul className="text-muted-foreground mt-2 list-disc space-y-1 ps-5 text-sm">
                 <li>

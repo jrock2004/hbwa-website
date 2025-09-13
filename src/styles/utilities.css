@@ -1,20 +1,52 @@
 /* Utility for theme-colored links */
 .link {
-  color: hsl(var(--brand));
-  text-decoration: underline;
-  font-weight: 500;
-  transition: color 0.15s;
+  color: var(--link-fg);
+  text-decoration-line: underline;
+  text-decoration-color: var(--link-deco);
+  text-decoration-thickness: 0.1em; /* thicker for visibility */
+  text-underline-offset: 0.15em;
+  font-weight: 600;
+  transition:
+    color 0.15s,
+    text-decoration-color 0.15s,
+    opacity 0.15s;
 }
+
 .link:hover,
 .link:focus {
-  color: hsl(var(--brand));
-  opacity: 0.85;
+  color: var(--link-fg-hover);
+  text-decoration-color: var(--link-fg-hover);
   outline: none;
 }
+
+/* keep a distinct visited state, but still pass contrast */
+.link:visited {
+  color: color-mix(in oklab, var(--link-fg) 85%, gray 15%);
+  text-decoration-color: currentColor;
+}
+
+/* high-contrast users get an even stronger underline */
+@media (prefers-contrast: more) {
+  .link {
+    text-decoration-thickness: 0.14em;
+  }
+}
+
+/* Keyboard focus (visible, high-contrast, non-overlapping) */
 .link:focus-visible {
-  outline: 2px solid hsl(var(--brand));
+  outline: 2px solid var(--link-fg-hover);
   outline-offset: 2px;
 }
+
+.link--inverse {
+  color: #fff;
+  text-decoration-color: #fff;
+}
+.link--inverse:hover,
+.link--inverse:focus {
+  opacity: 0.9;
+}
+
 @layer components {
   .container-page {
     @apply mx-auto max-w-6xl px-4 md:px-6;

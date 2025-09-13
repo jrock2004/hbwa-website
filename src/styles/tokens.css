@@ -11,6 +11,10 @@
   --card: 0 0% 100%;
   --card-foreground: 222 47% 11%;
 
+  --link-fg: hsl(var(--brand));
+  --link-fg-hover: hsl(var(--brand));
+  --link-deco: currentColor;
+
   --border: 214 32% 91%;
   --input: 214 32% 91%;
   --ring: var(--brand);
@@ -25,6 +29,10 @@ html.dark {
 
   --card: 222 47% 13%;
   --card-foreground: 210 40% 98%;
+
+  --link-fg: color-mix(in oklab, hsl(var(--brand)) 65%, white 35%);
+  --link-fg-hover: color-mix(in oklab, hsl(var(--brand)) 70%, white 30%);
+  --link-deco: currentColor;
 
   --border: 217 33% 22%;
   --input: 217 33% 22%;

@@ -15,10 +15,11 @@ export default function NavLinkItem({
       end={!!exact}
       className={({ isActive }) =>
         [
-          "inline-flex items-center gap-1 pb-1 leading-none transition",
+          "inline-flex items-center gap-1 pb-1 leading-none transition-colors",
+          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--link-fg-hover)]",
           isActive
-            ? "text-foreground border-b-2 border-[hsl(var(--brand))]"
-            : "text-muted-foreground hover:text-foreground",
+            ? "border-b-2 border-[var(--link-fg)] text-[var(--link-fg)]"
+            : "text-muted-foreground hover:text-[var(--link-fg)]",
         ].join(" ")
       }
     >
