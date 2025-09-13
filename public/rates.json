@@ -1,0 +1,241 @@
+{
+  "title": "Honey Brook Borough Authority — Schedule of Water Rates and Charges",
+  "effectiveDate": "2024-01-01",
+  "sections": [
+    {
+      "key": "domestic_service",
+      "title": "Domestic Service",
+      "fees": [
+        { "label": "Tapping Fee", "amountUSD": 3500 },
+        { "label": "Infrastructure Fee (Existing Residents)", "amountUSD": 1500 },
+        {
+          "label": "Connection Fee – Single EDU escrow – of main (If performed by Authority)",
+          "amountUSD": 8000,
+          "noteKey": "connection_fee_note"
+        },
+        {
+          "label": "Connection Fee – Single EDU escrow – of main (If performed by Applicant)",
+          "amountUSD": 6750,
+          "noteKey": "connection_fee_note"
+        },
+        { "label": "Road Cut Inspection Escrow Deposit", "amountUSD": 1000 }
+      ],
+      "subsections": [
+        {
+          "key": "facilities_fee",
+          "title": "Facilities Fee (in addition to tapping fee)",
+          "subtitle": "Standard 5/8\" meter, larger sizes will differ in cost",
+          "fees": [
+            {
+              "label": "Meter & Related Parts — Inside Installation (Standard 3/4\" Parts Only)",
+              "amountUSD": 375
+            },
+            {
+              "label": "Meter & Related Parts — Pit Installation (Standard 3/4\" Parts Only)",
+              "amountUSD": 950
+            },
+            { "label": "Meter only", "amountUSD": 210 },
+            { "label": "Meter Inspection Escrow Deposit", "amountUSD": 250 }
+          ]
+        }
+      ]
+    },
+
+    {
+      "key": "residential_fire_sprinkler",
+      "title": "Residential Fire Sprinkler Service",
+      "fees": [
+        { "label": "Tapping Fee", "amountUSD": 3500 },
+        {
+          "label": "Connection Fee – Single EDU escrow – of main (If performed by Authority)",
+          "amountUSD": 8000,
+          "noteKey": "connection_fee_note"
+        },
+        {
+          "label": "Connection Fee – Single EDU escrow – of main (If performed by Applicant)",
+          "amountUSD": 6750,
+          "noteKey": "connection_fee_note"
+        },
+        { "label": "Road Cut Inspection Escrow Deposit", "amountUSD": 1000 }
+      ],
+      "subsections": [
+        {
+          "key": "facilities_fee",
+          "title": "Facilities Fee (in addition to tapping fee)",
+          "subtitle": "Standard 5/8\" meter, larger sizes will differ in cost",
+          "fees": [
+            {
+              "label": "Meter & Related Parts — Inside Installation (Standard 3/4\" Parts Only)",
+              "amountUSD": 375
+            },
+            {
+              "label": "Meter & Related Parts — Pit Installation (Standard 3/4\" Parts Only)",
+              "amountUSD": 950
+            },
+            { "label": "Meter only", "amountUSD": 210 },
+            { "label": "Meter Inspection Escrow Deposit", "amountUSD": 250 }
+          ]
+        },
+        {
+          "key": "sprinkler_flat_rate",
+          "title": "Residential Fire Sprinkler Service Yearly Flat Rate",
+          "fees": [{ "label": "Yearly flat rate", "amountUSD": 14.4 }]
+        }
+      ]
+    },
+
+    {
+      "key": "fire_service",
+      "title": "Fire Service",
+      "fees": [
+        { "label": "Tapping Fee", "amountUSD": 3500 },
+        {
+          "label": "Connection Fee – Single EDU escrow – of main (If performed by Applicant)",
+          "amountUSD": 8750,
+          "noteKey": "connection_fee_note"
+        },
+        { "label": "Road Cut Inspection Escrow Deposit", "amountUSD": 1000 }
+      ],
+      "subsections": [
+        {
+          "key": "facilities_fee",
+          "title": "Facilities Fee (in addition to tapping fee)",
+          "subtitle": "Standard 5/8\" meter, larger sizes will differ in cost",
+          "fees": [
+            {
+              "label": "Meter & Related Parts — Inside Installation (Standard 3/4\" Parts Only)",
+              "amountUSD": 270
+            },
+            {
+              "label": "Meter & Related Parts — Pit Installation (Standard 3/4\" Parts Only)",
+              "amountUSD": 950
+            },
+            { "label": "Meter only", "amountUSD": 210 },
+            { "label": "Meter Inspection Escrow Deposit", "amountUSD": 250 }
+          ]
+        },
+        {
+          "key": "plan_review",
+          "title": "Plan Review Escrow (minimum balance to be maintained)",
+          "fees": [{ "label": "Plan Review Escrow", "amountUSD": 2000 }]
+        }
+      ]
+    },
+
+    {
+      "key": "billing_rates",
+      "title": "Billing Rates",
+      "fees": [
+        {
+          "label": "Water Flat Rate Minimum (for each Consumer Unit) — Flat Rate",
+          "amountUSD": 37.18
+        },
+        { "label": "Each 1,000 gallons (Flat Rate)", "amountUSD": 8.22 },
+        { "label": "Each 1,000 gallons thereafter", "amountUSD": 7.98 }
+      ],
+      "policies": [
+        "The Flat Rate is in effect for 30 days. A 10% penalty is applied after 30 days from bill date.",
+        "A 10% penalty is applied after 30 days from bill date for usage charges."
+      ]
+    },
+
+    {
+      "key": "hydrant_rent",
+      "title": "Hydrant Rent",
+      "fees": [{ "label": "Per hydrant each year", "amountUSD": 125 }]
+    },
+
+    {
+      "key": "service_fees",
+      "title": "Service & Administrative Fees",
+      "fees": [
+        {
+          "label": "Shut off & Restoration of Service Fee (each)",
+          "amountUSD": 75,
+          "details": "Service shut off for any reason and/or restored. $60/hour after first hour, billed in 15-minute increments."
+        },
+        {
+          "label": "Hourly labor (after first hour or other repairs)",
+          "amountUSD": 60,
+          "unit": "per_hour"
+        },
+        { "label": "Returned (Bad) Check Fee", "amountUSD": 25 },
+        { "label": "Certified Mail — Past Due Collections", "amountUSD": 15 },
+        { "label": "Certifications / Final Readings", "amountUSD": 25 },
+        { "label": "Requests for Account History — Non Customer", "amountUSD": 10 },
+        { "label": "Copy of Rules & Regulations (Complete)", "amountUSD": 10 },
+        { "label": "Postage", "amountText": "Actual cost" },
+        { "label": "Recording Fee for RSS Indemnity Agreement", "amountUSD": 65 },
+        { "label": "Photocopies — 8.5\"×11\"", "amountUSD": 0.25, "unit": "per_page" },
+        { "label": "Photocopies — larger pages", "amountUSD": 0.5, "unit": "per_page" },
+        {
+          "label": "Conversion of electronic records to paper",
+          "amountUSD": 0.25,
+          "unit": "per_page"
+        },
+        {
+          "label": "Certification (official public record, if requested)",
+          "amountUSD": 10,
+          "unit": "per_document"
+        },
+        {
+          "label": "Research Fee",
+          "amountUSD": 25,
+          "unit": "per_hour",
+          "details": "Billed in 15-minute increments (minimum $6.75)."
+        },
+        {
+          "label": "Photograph reproduction",
+          "amountText": "Actual reproduction cost + $20 per photo order"
+        },
+        {
+          "label": "Disk / CD / DVD / Flash Drive",
+          "amountText": "$1.00 per disk provided by Authority"
+        },
+        {
+          "label": "Fax",
+          "amountText": "Included in Certification Fee; otherwise $0.50 per single-sided page"
+        },
+        {
+          "label": "Plans/Prints/Other documents",
+          "amountText": "Actual cost + $5.00 administrative fee per order"
+        }
+      ],
+      "policies": [
+        "Damage to Authority property billed at actual cost + 10% administrative fee.",
+        "If Owner fails to allow meter repair/inspection after 60 days of notice, a flat rate of $150.00 per EDU per quarter applies until fixed or service terminated."
+      ]
+    },
+
+    {
+      "key": "meter_policies",
+      "title": "Meters & Testing",
+      "fees": [
+        {
+          "label": "Flat rate for non-functioning meters",
+          "amountUSD": 150,
+          "unit": "per_EDU_per_quarter"
+        },
+        {
+          "label": "Meter Tests — In-house (HBBA)",
+          "amountUSD": 60,
+          "details": "Includes removal/reinstall up to 1 hour + test procedure. Extra labor at hourly repair rate; parts at cost + 5%."
+        },
+        {
+          "label": "Meter Tests — Outside provider",
+          "amountUSD": 200,
+          "details": "Minimum; plus labor beyond first hour at repair rates; any other Authority costs + 5%."
+        }
+      ],
+      "links": [
+        {
+          "label": "Rules and Regulations of the Authority (PDF)",
+          "href": "/docs/rules-and-regulations.pdf"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "connection_fee_note": "Connection Fee is an estimate. Applicant responsible for all charges/fees for main connection, excavation, restoration, inspections. Applicant’s contractor must be Authority-approved and insured."
+  }
+}
