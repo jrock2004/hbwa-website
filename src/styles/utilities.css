@@ -72,6 +72,15 @@
   color: hsl(var(--brand) / 0.75);
 }
 
+.rates-accent {
+  color: hsl(var(--brand));
+}
+
+.dark .rates-accent,
+:root[data-theme="dark"] .rates-accent {
+  color: rgb(255 255 255 / 0.88) !important;
+}
+
 @layer components {
   .container-page {
     @apply mx-auto max-w-6xl px-4 md:px-6;

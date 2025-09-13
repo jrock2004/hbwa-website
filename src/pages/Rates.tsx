@@ -1,12 +1,14 @@
-import { useMemo, type JSX } from "react";
+import { useMemo, useState } from "react";
 import { useRates } from "@/hooks/useRates";
-import type { RateFee, RatesSection, RatesConfig } from "@/config/ratesConfig";
+import type { RateFee, RatesConfig } from "@/config/ratesConfig";
+import RatesSectionCard from "@/components/rates/RatesSectionCard";
+import RatesFilterBar, { type RatesFilter } from "@/components/rates/RatesFilterBar";
 
 export default function Rates() {
   const state = useRates();
   const data: RatesConfig | null = state.status === "success" ? state.data : null;
 
-  // Build deterministic order for notes
+  // ---------- notes order (unchanged) ----------
   const { noteOrder, count } = useMemo(() => {
     const order = new Map<string, number>();
     let n = 1;
@@ -42,6 +44,50 @@ export default function Rates() {
         : (f.amountText ?? "");
     const unit = f.unit ? ` (${f.unit.replaceAll("_", " ")})` : "";
     return base + unit;
+  };
+
+  // ---------- filter state ----------
+  const [filter, setFilter] = useState<RatesFilter>({
+    q: "",
+    min: null,
+    max: null,
+    sectionKey: "all",
+    hasNote: false,
+  });
+
+  // text normalizer for search
+  const norm = (s: string) => s.normalize("NFKD").toLowerCase();
+
+  const filterFee = (f: RateFee, sectionKey: string) => {
+    // section
+    if (filter.sectionKey && filter.sectionKey !== "all" && filter.sectionKey !== sectionKey) {
+      return false;
+    }
+
+    // has note
+    if (filter.hasNote && !f.noteKey) return false;
+
+    // amount range (only for numeric fees)
+    if (typeof f.amountUSD === "number") {
+      if (filter.min != null && f.amountUSD < filter.min) return false;
+      if (filter.max != null && f.amountUSD > filter.max) return false;
+    }
+
+    // text match against label, details, amount text, and unit
+    if (filter.q.trim()) {
+      const q = norm(filter.q.trim());
+      const hay = [
+        f.label ?? "",
+        f.details ?? "",
+        typeof f.amountUSD === "number" ? f.amountUSD.toLocaleString() : (f.amountText ?? ""),
+        f.unit?.replaceAll("_", " ") ?? "",
+      ]
+        .map((x) => norm(x))
+        .join(" • ");
+      if (!hay.includes(q)) return false;
+    }
+
+    return true;
   };
 
   if (state.status !== "success") {
@@ -80,13 +126,21 @@ export default function Rates() {
         )}
       </header>
 
-      {/* Sections */}
+      {/* Filter bar */}
+      <RatesFilterBar
+        value={filter}
+        onChange={setFilter}
+        sections={data!.sections.map((s) => ({ key: s.key, title: s.title }))}
+      />
+
+      {/* Sections (respect filter) */}
       {data!.sections.map((s) => (
         <RatesSectionCard
           key={s.key}
           section={s}
           renderNoteMark={renderNoteMark}
           formatAmount={formatAmount}
+          filterFee={(f) => filterFee(f, s.key)} // NEW
         />
       ))}
 
@@ -110,105 +164,5 @@ export default function Rates() {
         </aside>
       )}
     </div>
-  );
-}
-
-/* ---------- Section Card + Fees ---------- */
-
-function RatesSectionCard({
-  section,
-  renderNoteMark,
-  formatAmount,
-}: {
-  section: RatesSection;
-  renderNoteMark: (key?: string) => JSX.Element | null;
-  formatAmount: (f: RateFee) => string;
-}) {
-  return (
-    <section className="rates-card overflow-hidden rounded-2xl border border-black/10 shadow-sm dark:border-white/12">
-      <header className="border-b border-[hsl(var(--brand)/0.4)] px-5 py-4 dark:border-white/25">
-        <h2 className="rates-accent text-lg font-semibold tracking-tight">{section.title}</h2>
-        {section.subtitle && (
-          <p className="mt-1 text-xs opacity-80 dark:text-white/65">{section.subtitle}</p>
-        )}
-      </header>
-
-      {section.fees?.length ? (
-        <FeesList fees={section.fees} renderNoteMark={renderNoteMark} formatAmount={formatAmount} />
-      ) : null}
-
-      {section.subsections?.map((ss) => (
-        <div key={ss.key} className="border-t border-[hsl(var(--brand)/0.4)] dark:border-white/25">
-          <div className="px-5 pt-4 pb-2">
-            <h3 className="text-sm font-semibold dark:text-white/85">{ss.title}</h3>
-            {ss.subtitle && (
-              <p className="mt-1 text-xs opacity-80 dark:text-white/65">{ss.subtitle}</p>
-            )}
-          </div>
-          {ss.fees?.length ? (
-            <FeesList fees={ss.fees} renderNoteMark={renderNoteMark} formatAmount={formatAmount} />
-          ) : null}
-        </div>
-      ))}
-
-      {(section.policies?.length || section.links?.length) && (
-        <div className="policies border-t border-[hsl(var(--brand)/0.4)] bg-black/[0.02] px-5 py-4 dark:border-white/25">
-          {section.policies?.length ? (
-            <ul className="list-disc space-y-1 pl-5 text-xs opacity-80 dark:text-white/85">
-              {section.policies.map((p, i) => (
-                <li key={i}>{p}</li>
-              ))}
-            </ul>
-          ) : null}
-          {section.links?.length ? (
-            <div className="mt-2 text-xs">
-              {section.links.map((l, i) => (
-                <a
-                  key={i}
-                  href={l.href}
-                  className="underline underline-offset-2 dark:text-white/85"
-                >
-                  {l.label}
-                </a>
-              ))}
-            </div>
-          ) : null}
-        </div>
-      )}
-    </section>
-  );
-}
-
-function FeesList({
-  fees,
-  renderNoteMark,
-  formatAmount,
-}: {
-  fees: RateFee[];
-  renderNoteMark: (key?: string) => JSX.Element | null;
-  formatAmount: (f: RateFee) => string;
-}) {
-  return (
-    <ul className="divide-y divide-[hsl(var(--brand)/0.4)] dark:divide-white/25">
-      {fees.map((f, i) => (
-        <li
-          key={i}
-          className="grid grid-cols-1 items-start gap-2 px-5 py-3 sm:grid-cols-[1fr_auto] dark:bg-transparent"
-        >
-          <div className="pr-4">
-            <span className="font-medium dark:text-white/85">{f.label}</span>
-            {renderNoteMark(f.noteKey)}
-            {f.details && (
-              <div className="mt-0.5 text-xs opacity-70 dark:text-white/65">{f.details}</div>
-            )}
-          </div>
-
-          {/* Amounts */}
-          <div className="rates-accent font-semibold tabular-nums sm:text-right">
-            {formatAmount(f)}
-          </div>
-        </li>
-      ))}
-    </ul>
   );
 }
