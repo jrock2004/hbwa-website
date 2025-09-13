@@ -59,6 +59,19 @@
   outline-offset: 2px;
 }
 
+.text-brand {
+  color: hsl(var(--brand));
+}
+.bg-brand-5 {
+  background-color: hsl(var(--brand) / 0.05);
+}
+.border-brand-20 {
+  border-color: hsl(var(--brand) / 0.2);
+}
+.text-brand-700 {
+  color: hsl(var(--brand) / 0.75);
+}
+
 @layer components {
   .container-page {
     @apply mx-auto max-w-6xl px-4 md:px-6;

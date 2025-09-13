@@ -1,5 +1,5 @@
 :root {
-  --brand: 203, 92%, 19%, 1; /* primary hue in HSL */
+  --brand: 203 92% 19%;
   --brand-foreground: 0 0% 100%;
 
   --background: 0 0% 100%;
@@ -18,6 +18,8 @@
   --border: 214 32% 91%;
   --input: 214 32% 91%;
   --ring: var(--brand);
+
+  --rates-accent: hsl(var(--brand));
 }
 
 html.dark {
@@ -37,6 +39,8 @@ html.dark {
   --border: 217 33% 22%;
   --input: 217 33% 22%;
   --ring: var(--brand);
+
+  --rates-accent: rgba(255, 255, 255, 0.85);
 }
 
 /* Expose Tailwind-friendly semantic colors using arbitrary values */
