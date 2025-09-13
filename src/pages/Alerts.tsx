@@ -1,4 +1,3 @@
-// File: src/routes/alerts/Alerts.tsx
 import { useEffect, type JSX } from "react";
 import { useAlerts } from "@/hooks/useAlerts";
 import type { Alert as AlertRecord } from "@/config/alertsConfig";
@@ -41,25 +40,6 @@ function formatDateRange(a: AlertRecord): string {
     return `${start.toLocaleString(undefined, fmt)} → ${end.toLocaleString(undefined, fmt)}`;
   if (start) return `${start.toLocaleString(undefined, fmt)} → ongoing`;
   return "";
-}
-
-// --- Components ---
-function PageBanner({ hasEmergency }: { hasEmergency: boolean }) {
-  if (!hasEmergency) return null;
-  return (
-    <div
-      className="sticky top-0 z-40 border-b border-red-700/30 bg-red-600 py-2 text-white"
-      role="alert"
-      aria-live="assertive"
-    >
-      <div className="container mx-auto flex items-center gap-3 px-4">
-        <ExclamationTriangleIcon className="h-5 w-5 shrink-0" aria-hidden />
-        <p className="text-sm font-medium tracking-wide">
-          Active Emergency Notice — see details below.
-        </p>
-      </div>
-    </div>
-  );
 }
 
 function SectionHeader({
@@ -173,8 +153,6 @@ export default function AlertsRoute() {
 
   return (
     <div className="min-h-[60vh]">
-      <PageBanner hasEmergency={activeEmerg.length > 0} />
-
       <div className="container mx-auto px-4 py-10">
         <header className="mb-8">
           <div className="flex items-center gap-3">

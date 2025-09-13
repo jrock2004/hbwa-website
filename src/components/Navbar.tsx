@@ -4,6 +4,7 @@ import DesktopNav from "./nav/DesktopNav";
 import MobileMenu from "./nav/MobileMenu";
 import { primary, more } from "../nav/items";
 import { useSiteConfig } from "@/hooks/useSiteConfig";
+import GlobalAlertBanner from "./GlobalAlertBanner";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -77,6 +78,7 @@ export default function Navbar() {
         more={more}
         toggleRef={mobileBtnRef}
       />
+      <GlobalAlertBanner />
     </header>
   );
 }
