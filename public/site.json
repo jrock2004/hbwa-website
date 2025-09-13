@@ -1,0 +1,50 @@
+{
+  "about": {
+    "left": [
+      "Service Area: Borough + parts of Township (and minor in Caernarvon, Lancaster County).",
+      "Water Sources: Four groundwater wells; two storage tanks; booster pump station."
+    ],
+    "right": [
+      "Fire Protection: ≈88 hydrants connected to the distribution system.",
+      "Quality: Meet all Federal, State, and County regulations."
+    ]
+  },
+  "ccr": {
+    "title": "Featured: Annual Water Quality Report (CCR)",
+    "primary": { "label": "View 2024 CCR (PDF)", "to": "/water-quality" },
+    "secondary": { "label": "View Archive", "to": "/water-quality#archive" }
+  },
+  "contact": {
+    "phone": "(610) 273-7830",
+    "paOneCallUrl": "https://www.pa1call.org"
+  },
+  "hero": {
+    "title": "Honey Brook Water Authority",
+    "tagline": "Providing safe, reliable water service to Honey Brook Borough & Township.",
+    "ctas": [
+      { "label": "Pay Bill", "to": "/pay", "variant": "primary" },
+      { "label": "View Alerts", "to": "/alerts", "variant": "ghost" },
+      { "label": "2024 Water Quality Report", "to": "/water-quality", "variant": "outline" }
+    ],
+    "image": {
+      "src": "/images/booster-pump.jpg",
+      "alt": "Water tower in Honey Brook"
+    }
+  },
+  "notices": [
+    { "title": "Planned maintenance on Maple St.", "date": "2025-09-15", "to": "/alerts" },
+    { "title": "Hydrant flushing schedule posted", "date": "2025-09-10", "to": "/alerts#flushing" },
+    { "title": "Billing portal update", "date": "2025-09-03", "to": "/alerts#billing" }
+  ],
+  "siteTitle": "Honey Brook Water Authority",
+  "quickLinks": [
+    { "label": "Rates & Charges", "to": "/rates" },
+    { "label": "Documents", "to": "/documents" },
+    { "label": "Contact HBWA", "to": "/contact" },
+    { "label": "Governance", "to": "/governance" },
+    { "label": "Policies", "to": "/policies" },
+    { "label": "Newsletters", "to": "/newsletters" },
+    { "label": "Conservation", "to": "/conservation" },
+    { "label": "Links / Resources", "to": "/links" }
+  ]
+}

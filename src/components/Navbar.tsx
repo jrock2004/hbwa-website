@@ -3,12 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import DesktopNav from "./nav/DesktopNav";
 import MobileMenu from "./nav/MobileMenu";
 import { primary, more } from "../nav/items";
+import { useSiteConfig } from "@/hooks/useSiteConfig";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const mobileBtnRef = useRef<HTMLButtonElement | null>(null);
   const location = useLocation();
+  const { data: config } = useSiteConfig();
 
   // Close menus on route change; restore focus to mobile toggle
   useEffect(() => {
@@ -34,12 +36,14 @@ export default function Navbar() {
     return () => document.removeEventListener("keydown", onKey);
   }, [mobileOpen, moreOpen]);
 
+  if (!config) return null;
+
   return (
     <header className="bg-background/80 border-border sticky top-0 z-50 border-b backdrop-blur">
       <div className="container-page flex h-16 items-center">
         {/* Full title on the left */}
         <Link to="/" className="text-base font-semibold whitespace-nowrap md:text-lg">
-          Honey Brook Water Authority
+          {config.siteTitle}
         </Link>
 
         {/* Desktop nav on the right */}

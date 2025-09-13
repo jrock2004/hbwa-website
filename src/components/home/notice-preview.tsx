@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../nav/items";
-import { ALERTS } from "../../data/alerts";
+import { useSiteConfig } from "@/hooks/useSiteConfig";
 
 export function NoticesPreview() {
+  const { data: config } = useSiteConfig();
+
+  if (!config) return null;
+
   return (
     <section className="mx-auto max-w-6xl px-4 py-8" aria-labelledby="notices-heading">
       <div className="mb-4 flex items-center justify-between">
@@ -14,13 +18,12 @@ export function NoticesPreview() {
         </Link>
       </div>
       <ul className="grid gap-4 md:grid-cols-3">
-        {ALERTS.map((n) => (
-          <li key={n.id} className="border-border bg-card flex flex-col gap-2 rounded border p-4">
+        {config.notices.map((n) => (
+          <li key={n.title} className="card border-border border p-4">
             <h3 className="text-sm font-medium">{n.title}</h3>
-            <p className="text-muted-foreground text-xs">{n.body}</p>
-            <div className="mt-auto flex items-center justify-between">
-              <time className="text-muted-foreground text-[10px]">{n.date}</time>
-              <Link to={n.to} className="text-muted-foreground text-xs">
+            <time className="text-muted-foreground block text-[12px]">{n.date}</time>
+            <div className="mt-3">
+              <Link to={n.to} className="text-xs">
                 Read more →
               </Link>
             </div>
