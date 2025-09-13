@@ -1,3 +1,4 @@
+// src/components/GlobalAlertBanner.tsx
 import { useEffect, useMemo, useState } from "react";
 import { useAlerts } from "@/hooks/useAlerts";
 import type { Alert } from "@/config/alertsConfig";
@@ -22,7 +23,6 @@ export default function GlobalAlertBanner() {
   const { data: alerts, error, isLoading } = useAlerts();
   const [dismissedSig, setDismissedSig] = useState<string | null>(null);
 
-  // Build a signature for the current active set so we can re‑show when alerts change
   const { mode, signature, primary } = useMemo(() => {
     if (!alerts)
       return {
@@ -30,6 +30,7 @@ export default function GlobalAlertBanner() {
         signature: "",
         primary: null as Alert | null,
       };
+
     const active = alerts.filter((a) => isActive(a));
     const emergencies = active.filter((a) => a.severity === "emergency");
     const notices = active.filter((a) => a.severity === "notice");
@@ -47,23 +48,21 @@ export default function GlobalAlertBanner() {
     return { mode: chosenMode, signature: sig, primary: chosen[0] ?? null };
   }, [alerts]);
 
-  // Read/write dismissal (localStorage)
   useEffect(() => {
     try {
       const saved = localStorage.getItem("hbwa.alertBanner.dismissed");
       setDismissedSig(saved);
     } catch {
-      // ignore
+      /* ignore */
     }
   }, []);
 
   useEffect(() => {
-    // If the active alert set changed, clear an unrelated dismissal
     if (signature && dismissedSig && dismissedSig !== signature) {
       try {
         localStorage.removeItem("hbwa.alertBanner.dismissed");
       } catch {
-        // ignore
+        /* ignore */
       }
       setDismissedSig(null);
     }
@@ -74,31 +73,36 @@ export default function GlobalAlertBanner() {
     try {
       localStorage.setItem("hbwa.alertBanner.dismissed", signature);
     } catch {
-      // ignore
+      /* ignore */
     }
     setDismissedSig(signature);
   };
 
   if (isLoading || error) return null;
-  if (!mode || !primary) return null; // nothing active
-  if (dismissedSig === signature) return null; // user dismissed current set
+  if (!mode || !primary) return null;
+  if (dismissedSig === signature) return null;
 
   const isEmergency = mode === "emergency";
-  const color = isEmergency
-    ? "border-red-700/30 bg-red-600 text-white"
-    : "border-amber-700/30 bg-amber-500 text-white";
+
+  // Both variants softened for dark mode
+  const tone = isEmergency
+    ? "border-red-800/40 bg-red-600 text-white dark:bg-red-700/90 dark:border-red-300/20 dark:text-red-50"
+    : "border-amber-800/40 bg-amber-500 text-white dark:bg-amber-600/90 dark:border-amber-300/20 dark:text-amber-50";
 
   const Icon = isEmergency ? ExclamationTriangleIcon : InformationCircleIcon;
-  const label = isEmergency ? "Active Emergency Notice" : "Active Non‑Emergency Notice";
+  const label = isEmergency ? "Active Emergency Notice" : "Active Non-Emergency Notice";
 
   return (
-    <div className={`sticky top-0 z-40 border-b py-2 ${color}`} role="alert" aria-live="assertive">
-      <div className="flex w-full items-center gap-3 px-4">
+    <div className={`sticky top-0 z-40 border-b py-2 ${tone}`} role="alert" aria-live="assertive">
+      <div className="container mx-auto flex items-center gap-3 px-4">
         <Icon className="h-5 w-5 shrink-0" aria-hidden />
         <p className="text-sm font-medium tracking-wide">
           {label}
           {" — "}
-          <a href="/alerts" className="underline underline-offset-4 hover:no-underline">
+          <a
+            href="/alerts"
+            className="link--inverse underline underline-offset-4 hover:no-underline"
+          >
             see details
           </a>
           .
@@ -106,7 +110,7 @@ export default function GlobalAlertBanner() {
         <button
           type="button"
           onClick={dismiss}
-          className="rounded-full/px ms-auto inline-flex items-center gap-2 transition hover:opacity-80 focus:ring-2 focus:ring-white/60 focus:outline-none"
+          className="ms-auto inline-flex items-center gap-2 rounded px-1 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70"
           aria-label="Dismiss banner"
         >
           <XMarkIcon className="h-5 w-5" aria-hidden />

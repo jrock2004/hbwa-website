@@ -41,10 +41,22 @@
 .link--inverse {
   color: #fff;
   text-decoration-color: #fff;
+  font-weight: 600;
 }
+
 .link--inverse:hover,
 .link--inverse:focus {
+  color: #fff;
   opacity: 0.9;
+}
+
+.link--inverse:hover {
+  text-decoration-thickness: 0.14em;
+}
+
+.link--inverse:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 @layer components {

@@ -17,6 +17,8 @@ import Links from "./pages/Links";
 import Gallery from "./pages/Gallery";
 import WaterQuality from "./pages/WaterQuality";
 
+import NotFound from "./pages/NotFound";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,6 +38,7 @@ const router = createBrowserRouter([
       { path: "conservation", element: <Conservation /> },
       { path: "links", element: <Links /> },
       { path: "gallery", element: <Gallery /> },
+      { path: "*", element: <NotFound /> },
     ],
   },
 ]);
