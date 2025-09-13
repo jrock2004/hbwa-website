@@ -1,3 +1,20 @@
+/* Utility for theme-colored links */
+.link {
+  color: hsl(var(--brand));
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+.link:hover,
+.link:focus {
+  color: hsl(var(--brand));
+  opacity: 0.85;
+  outline: none;
+}
+.link:focus-visible {
+  outline: 2px solid hsl(var(--brand));
+  outline-offset: 2px;
+}
 @layer components {
   .container-page {
     @apply mx-auto max-w-6xl px-4 md:px-6;

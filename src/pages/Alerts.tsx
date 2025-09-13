@@ -1,11 +1,14 @@
-import { useEffect, type JSX } from "react";
+import { useEffect } from "react";
 import { useAlerts } from "@/hooks/useAlerts";
-import type { Alert as AlertRecord } from "@/config/alertsConfig";
 import {
   MegaphoneIcon,
   ExclamationTriangleIcon,
   InformationCircleIcon,
 } from "@heroicons/react/24/outline";
+import type { Alert as AlertRecord } from "@/config/alertsConfig";
+import { SectionHeader } from "@/components/alert/SectionHeader";
+import { NoticeCard } from "@/components/alert/NoticeCard";
+import { ContactBox } from "@/components/alert/ContactBox";
 
 // --- Utilities ---
 const now = () => new Date();
@@ -25,102 +28,6 @@ function isRecentlyResolved(a: AlertRecord, ref: Date = now()): boolean {
   if (!end) return false;
   const diffDays = (ref.getTime() - end.getTime()) / 86_400_000;
   return diffDays >= 0 && diffDays <= 14;
-}
-
-function formatDateRange(a: AlertRecord): string {
-  const start = parse(a.effectiveFrom);
-  const end = parse(a.effectiveTo ?? undefined);
-  const fmt: Intl.DateTimeFormatOptions = {
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  };
-  if (start && end)
-    return `${start.toLocaleString(undefined, fmt)} → ${end.toLocaleString(undefined, fmt)}`;
-  if (start) return `${start.toLocaleString(undefined, fmt)} → ongoing`;
-  return "";
-}
-
-function SectionHeader({
-  icon,
-  title,
-  subtitle,
-}: {
-  icon: JSX.Element;
-  title: string;
-  subtitle?: string;
-}) {
-  return (
-    <div className="mb-4 flex items-start gap-3">
-      <div className="mt-0.5">{icon}</div>
-      <div>
-        <h2 className="text-xl leading-tight font-semibold">{title}</h2>
-        {subtitle ? <p className="text-muted-foreground text-sm leading-snug">{subtitle}</p> : null}
-      </div>
-    </div>
-  );
-}
-
-function NoticeCard({ a }: { a: AlertRecord }) {
-  const isEmerg = a.severity === "emergency";
-  return (
-    <article
-      className={
-        "rounded-2xl border p-4 shadow-sm transition hover:shadow-md " +
-        (isEmerg
-          ? "border-red-600/30 bg-red-50 text-red-950 dark:bg-red-950/10 dark:text-red-100"
-          : "border-amber-600/30 bg-amber-50 text-amber-950 dark:bg-amber-950/10 dark:text-amber-100")
-      }
-    >
-      <header className="flex items-start gap-3">
-        {isEmerg ? (
-          <ExclamationTriangleIcon className="mt-0.5 h-5 w-5" aria-hidden />
-        ) : (
-          <InformationCircleIcon className="mt-0.5 h-5 w-5" aria-hidden />
-        )}
-        <div className="flex-1">
-          <h3 className="text-base leading-tight font-semibold">{a.title}</h3>
-          <p className="text-muted-foreground mt-0.5 text-xs">{formatDateRange(a)}</p>
-        </div>
-      </header>
-      <p className="mt-3 text-sm leading-relaxed">{a.description}</p>
-      <footer className="mt-4 flex flex-wrap items-center gap-3">
-        {a.link ? (
-          <a
-            href={a.link}
-            className="text-sm font-medium underline underline-offset-4 hover:no-underline"
-          >
-            View full notice
-          </a>
-        ) : null}
-        <div className="ms-auto flex gap-2">
-          {(a.tags ?? []).slice(0, 4).map((t) => (
-            <span key={t} className="rounded-full border px-2 py-0.5 text-xs">
-              {t}
-            </span>
-          ))}
-        </div>
-      </footer>
-    </article>
-  );
-}
-
-function ContactBox() {
-  return (
-    <aside className="bg-card text-card-foreground rounded-2xl border p-4 shadow-sm">
-      <h3 className="text-base font-semibold">Report an Emergency</h3>
-      <p className="mt-1 text-sm">
-        Call our main office at <span className="font-semibold">(610) 273-7830</span>. If the office
-        is closed, the voicemail recording provides emergency contact numbers.
-      </p>
-      <p className="text-muted-foreground mt-3 text-sm">
-        Note: HBWA maintains the public system (mains, hydrants, wells, plants, pump stations,
-        storage tanks). Repairs on the property owner’s side of the curb-stop are the owner’s
-        responsibility.
-      </p>
-    </aside>
-  );
 }
 
 export default function AlertsRoute() {
@@ -241,6 +148,3 @@ export default function AlertsRoute() {
     </div>
   );
 }
-
-// File: src/routes/alerts/index.ts
-export { default as Component } from "./Alerts";
