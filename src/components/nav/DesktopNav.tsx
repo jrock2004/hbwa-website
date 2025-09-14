@@ -1,6 +1,7 @@
 import NavLinkItem from "./NavLinkItem";
 import MoreDropdown from "./MoreDropdown";
 import type { NavItem } from "../../nav/items";
+import clsx from "clsx";
 
 export default function DesktopNav({
   primary,
@@ -16,7 +17,7 @@ export default function DesktopNav({
   className?: string;
 }) {
   return (
-    <nav className={`hidden items-end gap-6 text-sm md:flex ${className}`} aria-label="Primary">
+    <nav className={clsx("hidden items-end gap-6 text-sm md:flex", className)} aria-label="Primary">
       {primary.map((n) => (
         <NavLinkItem key={n.to} to={n.to} exact={n.exact}>
           {n.label}

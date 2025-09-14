@@ -1,4 +1,5 @@
 import { useId } from "react";
+import clsx from "clsx";
 
 export type RatesFilter = {
   q: string;
@@ -102,17 +103,21 @@ export default function RatesFilterBar({
         <button
           type="button"
           onClick={() => set("hasNote", !value.hasNote)}
-          className={
+          className={clsx(
+            "rounded-full border bg-transparent px-3 py-2 text-sm transition",
             value.hasNote
-              ? "rates-accent rounded-full border px-3 py-2 text-sm transition " +
-                "border-[hsl(var(--brand))] bg-transparent" +
-                "dark:border-[color-mix(in_oklab,hsl(var(--brand))_55%,white_45%)]"
-              : "rounded-full border bg-transparent px-3 py-2 text-sm transition " +
-                "text-foreground border-black/30 hover:bg-black/[0.04]" +
-                "dark:text-white/85" +
-                "dark:border-[color-mix(in_oklab,hsl(var(--brand))_25%,white_75%)]" +
-                "dark:hover:bg-white/[0.06]"
-          }
+              ? [
+                  "rates-accent",
+                  "border-[hsl(var(--brand))]",
+                  "dark:border-[color-mix(in_oklab,hsl(var(--brand))_55%,white_45%)]"
+                ]
+              : [
+                  "text-foreground border-black/30 hover:bg-black/[0.04]",
+                  "dark:text-white/85",
+                  "dark:border-[color-mix(in_oklab,hsl(var(--brand))_25%,white_75%)]",
+                  "dark:hover:bg-white/[0.06]"
+                ]
+          )}
           aria-pressed={value.hasNote ? "true" : "false"}
         >
           Only items with notes
@@ -124,13 +129,12 @@ export default function RatesFilterBar({
           onClick={() =>
             onChange({ q: "", min: null, max: null, sectionKey: "all", hasNote: false })
           }
-          className={
-            "ml-auto rounded-full border bg-transparent px-3 py-2 text-sm " +
-            "text-foreground border-black/30 hover:bg-black/[0.04]" +
-            "dark:text-white/90" +
-            "dark:border-[color-mix(in_oklab,hsl(var(--brand))_25%,white_75%)]" +
+          className={clsx(
+            "ml-auto rounded-full border bg-transparent px-3 py-2 text-sm text-foreground border-black/30 hover:bg-black/[0.04]",
+            "dark:text-white/90",
+            "dark:border-[color-mix(in_oklab,hsl(var(--brand))_25%,white_75%)]",
             "dark:hover:bg-white/[0.06]"
-          }
+          )}
         >
           Reset
         </button>

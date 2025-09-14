@@ -15,11 +15,11 @@ export function AlertBanner({
   variant?: Variant;
 }) {
   return (
-    <div role="status" className={`rounded-xl border p-4 ${VARIANT_STYLES[variant]}`}>
+    <div role="status" className={clsx("rounded-xl border p-4", VARIANT_STYLES[variant])}>
       <div className="font-medium">{title}</div>
       {children ? <div className="text-muted-foreground mt-1 text-sm">{children}</div> : null}
     </div>
   );
 }
-
+import clsx from "clsx";
 type Variant = "info" | "success" | "warning" | "danger";

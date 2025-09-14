@@ -1,5 +1,6 @@
 import { InformationCircleIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import type { Alert } from "@/config/alertsConfig";
+import clsx from "clsx";
 
 // small helper to keep the component self-contained
 const parse = (s?: string | null) => (s ? new Date(s) : undefined);
@@ -35,7 +36,7 @@ export function NoticeCard({ a }: { a: Alert }) {
       ].join(" ");
 
   return (
-    <article className={`${shell} ${tone}`}>
+    <article className={clsx(shell, tone)}>
       <header className="flex items-start gap-3">
         {isEmerg ? (
           <ExclamationTriangleIcon

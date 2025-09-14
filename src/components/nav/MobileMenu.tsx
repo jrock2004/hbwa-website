@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import clsx from "clsx";
 import { useEffect, useRef } from "react";
 import { motion, AnimatePresence, type Variants } from "motion/react";
 import { useFocusTrap } from "../../hooks/useFocusTrap";
@@ -136,12 +137,12 @@ function MobileLink({
       to={to}
       onClick={onClick}
       className={({ isActive }) =>
-        [
+        clsx(
           "rounded-lg px-3 py-2 focus:ring-2 focus:ring-[hsl(var(--ring))] focus:outline-none",
           isActive
             ? "text-foreground bg-[hsl(var(--muted))]"
-            : "text-muted-foreground hover:text-foreground hover:bg-[hsl(var(--muted))]",
-        ].join(" ")
+            : "text-muted-foreground hover:text-foreground hover:bg-[hsl(var(--muted))]"
+        )
       }
     >
       {children}

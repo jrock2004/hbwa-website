@@ -1,4 +1,5 @@
 import React, { useId, useRef, useState } from "react";
+import clsx from "clsx";
 
 type Side = "top" | "right" | "bottom" | "left";
 export interface TooltipProps {
@@ -61,14 +62,14 @@ export function Tooltip({
         id={id}
         role="tooltip"
         aria-hidden={disabled || !open}
-        className={[
+        className={clsx(
           "pointer-events-none absolute z-[9999] max-w-xs rounded-md px-2.5 py-1.5 text-[11px] leading-snug font-medium select-none",
           "bg-black/90 text-white mix-blend-normal shadow-2xl ring-1 ring-white/20 drop-shadow-lg backdrop-blur-sm",
           "translate-y-0.5 scale-[0.98] opacity-0 transition-all duration-150 ease-out",
-          !disabled && open ? "translate-y-0 scale-100 opacity-100" : "",
+          !disabled && open && "translate-y-0 scale-100 opacity-100",
           pos,
-          className,
-        ].join(" ")}
+          className
+        )}
       >
         {content}
       </span>
