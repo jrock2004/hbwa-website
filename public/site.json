@@ -15,11 +15,12 @@
     "secondary": { "label": "View Archive", "to": "/water-quality#archive" }
   },
   "contact": {
+    "email": "hbba@verizon.net",
     "phone": "(610) 273-7830",
     "paOneCallUrl": "https://www.pa1call.org",
     "address": {
       "buildingName": "Borough Hall Annex",
-      "street": "",
+      "street": "91 Pequea Ave",
       "city": "Honey Brook",
       "state": "PA",
       "zip": "19344",

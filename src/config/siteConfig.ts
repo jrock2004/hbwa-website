@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { email, z } from "zod";
 
 export const LinkItem = z.object({
   label: z.string(),
@@ -20,6 +20,7 @@ export const SiteConfigSchema = z.object({
     secondary: LinkItem,
   }),
   contact: z.object({
+    email: email().optional(),
     phone: z.string(),
     paOneCallUrl: z.string().url(),
     address: z.object({
