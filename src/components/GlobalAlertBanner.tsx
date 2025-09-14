@@ -94,7 +94,11 @@ export default function GlobalAlertBanner() {
   const label = isEmergency ? "Active Emergency Notice" : "Active Non-Emergency Notice";
 
   return (
-    <div className={clsx("sticky top-0 z-40 border-b py-2", tone)} role="alert" aria-live="assertive">
+    <div
+      className={clsx("sticky top-0 z-40 border-b py-2", tone)}
+      role="alert"
+      aria-live="assertive"
+    >
       <div className="container mx-auto flex items-center gap-3 px-4">
         <Icon className="h-5 w-5 shrink-0" aria-hidden />
         <p className="text-sm font-medium tracking-wide">

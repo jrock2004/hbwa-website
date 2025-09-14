@@ -20,7 +20,7 @@ export default function NavLinkItem({
           "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--link-fg-hover)]",
           isActive
             ? "border-b-2 border-[var(--link-fg)] text-[var(--link-fg)]"
-            : "text-muted-foreground hover:text-[var(--link-fg)]"
+            : "text-muted-foreground hover:text-[var(--link-fg)]",
         )
       }
     >

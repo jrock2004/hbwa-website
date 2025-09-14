@@ -68,7 +68,7 @@ export function Tooltip({
           "translate-y-0.5 scale-[0.98] opacity-0 transition-all duration-150 ease-out",
           !disabled && open && "translate-y-0 scale-100 opacity-100",
           pos,
-          className
+          className,
         )}
       >
         {content}

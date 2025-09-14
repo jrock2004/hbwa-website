@@ -6,7 +6,7 @@ export function Card({ children, className, subtitle, title }: CardProps) {
     <section
       className={clsx(
         "overflow-hidden rounded-2xl border border-black/10 shadow-sm dark:border-white/12",
-        className
+        className,
       )}
     >
       <header className="border-b border-[hsl(var(--brand)/0.4)] px-5 py-4 dark:border-white/25">

@@ -28,7 +28,7 @@ export default function MoreDropdown({
           "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--link-fg-hover)]",
           open
             ? "border-b-2 border-[var(--link-fg)] text-[var(--link-fg)]"
-            : "text-muted-foreground hover:text-[var(--link-fg)]"
+            : "text-muted-foreground hover:text-[var(--link-fg)]",
         )}
         aria-haspopup="menu"
         aria-expanded={open}
@@ -52,7 +52,7 @@ export default function MoreDropdown({
         className={clsx(
           "border-border bg-background absolute right-0 mt-2 w-56 rounded-xl border shadow-lg",
           "origin-top-right transition-all duration-150 ease-out",
-          open ? "z-50 scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
+          open ? "z-50 scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0",
         )}
       >
         <ul className="py-1">
@@ -66,7 +66,7 @@ export default function MoreDropdown({
                     "block rounded-md px-3 py-2 focus:ring-2 focus:ring-[hsl(var(--ring))] focus:outline-none",
                     isActive
                       ? "text-foreground bg-[hsl(var(--muted))]"
-                      : "text-muted-foreground hover:text-foreground"
+                      : "text-muted-foreground hover:text-foreground",
                   )
                 }
               >
