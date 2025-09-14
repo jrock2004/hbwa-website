@@ -25,7 +25,7 @@ export default function RatesSectionCard({
   if (!hasAny) return null;
 
   return (
-    <section className="rates-card overflow-hidden rounded-2xl border border-black/10 shadow-sm dark:border-white/12">
+    <section className="overflow-hidden rounded-2xl border border-black/10 shadow-sm dark:border-white/12">
       <header className="border-b border-[hsl(var(--brand)/0.4)] px-5 py-4 dark:border-white/25">
         <h2 className="rates-accent text-lg font-semibold tracking-tight">{section.title}</h2>
         {section.subtitle && (

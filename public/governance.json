@@ -1,0 +1,30 @@
+{
+  "board": [
+    { "role": "Chairman", "name": "Theodore Ford" },
+    { "role": "Vice Chairman", "name": "William Androwick" },
+    { "role": "Secretary", "name": "Thomas Richards" },
+    { "role": "Treasurer", "name": "Edward Max" },
+    { "role": "Assistant Secretary/Treasurer", "name": "Thomas Kern" }
+  ],
+  "employees": [
+    { "role": "Manager/Operator", "name": "William S. Freeman" },
+    { "role": "Chief Operator", "name": "Charles Zirkel" },
+    { "role": "Maintenance", "name": "Dennis Patterson" },
+    { "role": "Meter Reader", "name": "Beth Coblentz" }
+  ],
+  "consultants": [
+    {
+      "role": "Legal Services",
+      "name": "Lamb McErlane PC — Solicitor Helen Esbenshade, Esq."
+    },
+    {
+      "role": "Engineering Services",
+      "name": "McCarthy Engineering — Christopher Falencki, P.E."
+    }
+  ],
+  "memberships": [
+    "Pennsylvania Rural Water Association",
+    "Pennsylvania One Call System",
+    "American Water Works Association"
+  ]
+}
