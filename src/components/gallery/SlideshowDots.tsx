@@ -1,12 +1,4 @@
 import clsx from "clsx";
-import React from "react";
-
-interface SlideshowDotsProps {
-  count: number;
-  current: number;
-  regionId: string;
-  goTo: (i: number) => void;
-}
 
 export function SlideshowDots({ count, current, regionId, goTo }: SlideshowDotsProps) {
   return (
@@ -30,4 +22,11 @@ export function SlideshowDots({ count, current, regionId, goTo }: SlideshowDotsP
       ))}
     </div>
   );
+}
+
+interface SlideshowDotsProps {
+  count: number;
+  current: number;
+  regionId: string;
+  goTo: (i: number) => void;
 }

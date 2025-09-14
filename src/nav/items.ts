@@ -6,7 +6,6 @@ export const ROUTES = {
   contact: "/contact",
   governance: "/governance",
   policies: "/policies",
-  newsletters: "/newsletters",
   conservation: "/conservation",
   links: "/links",
   gallery: "/gallery",
@@ -24,7 +23,6 @@ export const primary: NavItem[] = [
 export const more: NavItem[] = [
   { to: ROUTES.governance, label: "Governance" },
   { to: ROUTES.policies, label: "Policies" },
-  { to: ROUTES.newsletters, label: "Newsletters" },
   { to: ROUTES.conservation, label: "Conservation" },
   { to: ROUTES.links, label: "Links" },
   { to: ROUTES.gallery, label: "Gallery" },

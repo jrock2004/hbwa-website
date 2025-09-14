@@ -1,13 +1,4 @@
 import clsx from "clsx";
-import React from "react";
-
-interface SlideshowControlsProps {
-  onPrev: () => void;
-  onNext: () => void;
-  playing: boolean;
-  onPlayPause: () => void;
-  isAutoPaused: boolean;
-}
 
 export function SlideshowControls({
   onPrev,
@@ -72,4 +63,12 @@ export function SlideshowControls({
       </button>
     </div>
   );
+}
+
+interface SlideshowControlsProps {
+  onPrev: () => void;
+  onNext: () => void;
+  playing: boolean;
+  onPlayPause: () => void;
+  isAutoPaused: boolean;
 }

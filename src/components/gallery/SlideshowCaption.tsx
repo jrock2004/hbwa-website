@@ -1,12 +1,5 @@
 import { motion, AnimatePresence } from "motion/react";
 import clsx from "clsx";
-import React from "react";
-
-interface SlideshowCaptionProps {
-  src: string;
-  title?: string;
-  caption?: string;
-}
 
 export function SlideshowCaption({ src, title, caption }: SlideshowCaptionProps) {
   if (!title && !caption) return null;
@@ -29,4 +22,10 @@ export function SlideshowCaption({ src, title, caption }: SlideshowCaptionProps)
       </motion.figcaption>
     </AnimatePresence>
   );
+}
+
+interface SlideshowCaptionProps {
+  src: string;
+  title?: string;
+  caption?: string;
 }

@@ -1,18 +1,5 @@
 import { motion, AnimatePresence } from "motion/react";
 import clsx from "clsx";
-import React from "react";
-
-interface SlideshowImageProps {
-  src: string;
-  alt: string;
-  width?: number;
-  height?: number;
-  isLoaded: boolean;
-  isFirst: boolean;
-  direction: 1 | -1;
-  dx: number;
-  onLoad: () => void;
-}
 
 export function SlideshowImage({
   src,
@@ -50,4 +37,16 @@ export function SlideshowImage({
       />
     </AnimatePresence>
   );
+}
+
+interface SlideshowImageProps {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  isLoaded: boolean;
+  isFirst: boolean;
+  direction: 1 | -1;
+  dx: number;
+  onLoad: () => void;
 }

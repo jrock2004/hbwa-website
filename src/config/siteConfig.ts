@@ -22,6 +22,14 @@ export const SiteConfigSchema = z.object({
   contact: z.object({
     phone: z.string(),
     paOneCallUrl: z.string().url(),
+    address: z.object({
+      buildingName: z.string().optional(),
+      street: z.string().optional(),
+      city: z.string().optional(),
+      state: z.string().optional(),
+      zip: z.string().optional(),
+      poBox: z.string().optional(),
+    }),
   }),
   hero: z.object({
     title: z.string(),
