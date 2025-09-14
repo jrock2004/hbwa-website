@@ -45,7 +45,7 @@ export default function MoreDropdown({
         className={[
           "border-border bg-background absolute right-0 mt-5 w-56 rounded-xl border shadow-lg",
           "origin-top-right transform transition",
-          open ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0",
+          open ? "z-50 scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0",
         ].join(" ")}
       >
         <ul className="py-1">
