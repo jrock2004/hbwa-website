@@ -18,7 +18,7 @@ export default function MoreDropdown({
   useOnClickOutside([btnRef, menuRef], () => open && setOpen(false));
 
   return (
-    <>
+    <div className="relative inline-block text-left">
       <button
         ref={btnRef}
         type="button"
@@ -43,8 +43,8 @@ export default function MoreDropdown({
         ref={menuRef}
         role="menu"
         className={[
-          "border-border bg-background absolute right-0 mt-5 w-56 rounded-xl border shadow-lg",
-          "origin-top-right transform transition",
+          "border-border bg-background absolute right-0 mt-2 w-56 rounded-xl border shadow-lg",
+          "origin-top-right transition-all duration-150 ease-out",
           open ? "z-50 scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0",
         ].join(" ")}
       >
@@ -69,6 +69,6 @@ export default function MoreDropdown({
           ))}
         </ul>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "src": "/slideshow/covered-bridge.jpg",
+      "alt": "Honey Brook covered bridge at golden hour over the creek",
+      "title": "Covered Bridge",
+      "caption": "Golden hour at the creek.",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "src": "/slideshow/reservoir-morning.jpg",
+      "alt": "Reservoir at sunrise with light fog on the water",
+      "title": "Reservoir Sunrise",
+      "caption": "Soft fog rolling in.",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "src": "/slideshow/water-tower.jpg",
+      "alt": "Water tower peeking over trees in summer",
+      "title": "Water Tower",
+      "caption": "Summer greens.",
+      "width": 1600,
+      "height": 900
+    }
+  ]
+}
