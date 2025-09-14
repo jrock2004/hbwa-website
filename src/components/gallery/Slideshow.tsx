@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import clsx from "clsx";
 import type { Picture } from "@/config/picturesConfig";
+import { motion, AnimatePresence } from "motion/react";
 
 // tweak here if you want a default ratio when width/height are missing
 const FALLBACK_ASPECT = "16 / 9";
@@ -17,6 +18,9 @@ export default function Slideshow({
   const count = pictures?.length ?? 0;
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(autoPlay);
+
+  // NEW: store transition direction for slide animation
+  const [direction, setDirection] = useState<1 | -1>(1);
 
   // pause signals
   const [isUserFocus, setIsUserFocus] = useState(false);
@@ -35,9 +39,18 @@ export default function Slideshow({
     return Math.max(0, Math.min(count - 1, i));
   };
 
-  const next = () => setIndex((i) => clamp(i + 1));
-  const prev = () => setIndex((i) => clamp(i - 1));
-  const goTo = (i: number) => setIndex(clamp(i));
+  const next = () => {
+    setDirection(1);
+    setIndex((i) => clamp(i + 1));
+  };
+  const prev = () => {
+    setDirection(-1);
+    setIndex((i) => clamp(i - 1));
+  };
+  const goTo = (i: number) => {
+    setDirection(i > index ? 1 : -1);
+    setIndex(clamp(i));
+  };
 
   const announce = (msg: string) => {
     if (liveRef.current) liveRef.current.textContent = msg;
@@ -61,7 +74,7 @@ export default function Slideshow({
     }
   }, [index, pictures]);
 
-  // autoplay, now CLS-safe since height is reserved
+  // autoplay, CLS-safe since height is reserved
   useEffect(() => {
     if (!playing || prefersReduced || isMediaHover || isUserFocus || count < 2) return;
 
@@ -121,6 +134,9 @@ export default function Slideshow({
     }
   };
 
+  // Helper to compute enter/exit offsets respecting reduced motion
+  const dx = prefersReduced ? 0 : 40;
+
   return (
     <section
       id={regionId}
@@ -167,37 +183,49 @@ export default function Slideshow({
           />
         )}
 
-        {/* The image fills the reserved box without shifting layout */}
-        <img
-          key={pic.src}
-          src={pic.src}
-          alt={pic.alt}
-          width={pic.width}
-          height={pic.height}
-          decoding="async"
-          loading={isFirst ? "eager" : "lazy"}
-          fetchPriority={isFirst ? ("high" as const) : ("auto" as const)}
-          onLoad={() => setLoadedBySrc((m) => (m[pic.src] ? m : { ...m, [pic.src]: true }))}
-          className={clsx(
-            "absolute inset-0 m-auto",
-            "h-full w-full object-contain",
-            "transition-opacity duration-300",
-            isLoaded ? "opacity-100" : "opacity-0",
-          )}
-          sizes="(min-width: 1024px) 1024px, 100vw"
-        />
+        {/* Animated slide/fade image (Motion.dev API) */}
+        <AnimatePresence>
+          <motion.img
+            key={pic.src}
+            initial={{ x: direction * dx, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -direction * dx, opacity: 0 }}
+            transition={{ duration: 0.28 }}
+            src={pic.src}
+            alt={pic.alt}
+            width={pic.width}
+            height={pic.height}
+            decoding="async"
+            loading={isFirst ? "eager" : "lazy"}
+            fetchPriority={isFirst ? ("high" as const) : ("auto" as const)}
+            onLoad={() => setLoadedBySrc((m) => (m[pic.src] ? m : { ...m, [pic.src]: true }))}
+            className={clsx(
+              "absolute inset-0 m-auto h-full w-full object-contain",
+              "transition-opacity duration-200",
+              isLoaded ? "opacity-100" : "opacity-0",
+            )}
+            sizes="(min-width: 1024px) 1024px, 100vw"
+          />
+        </AnimatePresence>
 
         {(pic.title || pic.caption) && (
-          <figcaption
-            className={clsx(
-              "pointer-events-none absolute inset-x-0 bottom-0",
-              "flex flex-col gap-0.5 p-3 sm:p-4",
-              "bg-gradient-to-t from-black/60 to-transparent text-white",
-            )}
-          >
-            {pic.title && <span className="text-sm font-medium sm:text-base">{pic.title}</span>}
-            {pic.caption && <span className="text-xs opacity-90 sm:text-sm">{pic.caption}</span>}
-          </figcaption>
+          <AnimatePresence>
+            <motion.figcaption
+              key={`${pic.src}-caption`}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 6 }}
+              transition={{ duration: 0.18 }}
+              className={clsx(
+                "pointer-events-none absolute inset-x-0 bottom-0",
+                "flex flex-col gap-0.5 p-3 sm:p-4",
+                "bg-gradient-to-t from-black/60 to-transparent text-white",
+              )}
+            >
+              {pic.title && <span className="text-sm font-medium sm:text-base">{pic.title}</span>}
+              {pic.caption && <span className="text-xs opacity-90 sm:text-sm">{pic.caption}</span>}
+            </motion.figcaption>
+          </AnimatePresence>
         )}
       </div>
 
