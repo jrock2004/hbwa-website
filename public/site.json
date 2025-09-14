@@ -16,7 +16,15 @@
   },
   "contact": {
     "phone": "(610) 273-7830",
-    "paOneCallUrl": "https://www.pa1call.org"
+    "paOneCallUrl": "https://www.pa1call.org",
+    "address": {
+      "buildingName": "Borough Hall Annex",
+      "street": "",
+      "city": "Honey Brook",
+      "state": "PA",
+      "zip": "19344",
+      "poBox": "P.O. Box 669"
+    }
   },
   "hero": {
     "title": "Honey Brook Water Authority",
@@ -43,7 +51,6 @@
     { "label": "Contact HBWA", "to": "/contact" },
     { "label": "Governance", "to": "/governance" },
     { "label": "Policies", "to": "/policies" },
-    { "label": "Newsletters", "to": "/newsletters" },
     { "label": "Conservation", "to": "/conservation" },
     { "label": "Links / Resources", "to": "/links" }
   ]

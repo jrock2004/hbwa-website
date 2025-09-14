@@ -11,7 +11,6 @@ import AlertsPage from "./pages/Alerts";
 import Rates from "./pages/Rates";
 import Governance from "./pages/Governance";
 import Policies from "./pages/Policies";
-import Newsletters from "./pages/Newsletters";
 import Conservation from "./pages/Conservation";
 import Links from "./pages/Links";
 import Gallery from "./pages/Gallery";
@@ -34,7 +33,6 @@ const router = createBrowserRouter([
       { path: "rates", element: <Rates /> },
       { path: "governance", element: <Governance /> },
       { path: "policies", element: <Policies /> },
-      { path: "newsletters", element: <Newsletters /> },
       { path: "conservation", element: <Conservation /> },
       { path: "links", element: <Links /> },
       { path: "gallery", element: <Gallery /> },

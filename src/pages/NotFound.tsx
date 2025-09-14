@@ -19,7 +19,6 @@ const POPULAR_LINKS = [
   { title: "Contact", to: "/contact" },
   { title: "Governance", to: "/governance" },
   { title: "Policies", to: "/policies" },
-  { title: "Newsletters", to: "/newsletters" },
   { title: "Conservation", to: "/conservation" },
   { title: "Links", to: "/links" },
   { title: "Gallery", to: "/gallery" },
