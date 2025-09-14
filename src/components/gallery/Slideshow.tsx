@@ -2,9 +2,13 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import clsx from "clsx";
 import type { Picture } from "@/config/picturesConfig";
 
+// tweak here if you want a default ratio when width/height are missing
+const FALLBACK_ASPECT = "16 / 9";
+const DEFAULT_SLIDESHOW_INTERVAL = 5000;
+
 export default function Slideshow({
   pictures,
-  interval = 5000,
+  interval = DEFAULT_SLIDESHOW_INTERVAL,
   autoPlay = true,
   ariaLabel = "Gallery slideshow",
   loop = true,
@@ -14,13 +18,13 @@ export default function Slideshow({
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(autoPlay);
 
-  // Pausing scenarios
+  // pause signals
   const [isUserFocus, setIsUserFocus] = useState(false);
   const [isMediaHover, setIsMediaHover] = useState(false);
   const [prefersReduced, setPrefersReduced] = useState(false);
 
-  // Derived UI state (used only for labels/icons)
-  const isAutoPaused = playing && (isMediaHover || isUserFocus || prefersReduced);
+  // image load state to fade-in & show skeleton
+  const [loadedBySrc, setLoadedBySrc] = useState<Record<string, boolean>>({});
 
   const regionId = useMemo(() => `slideshow-${Math.random().toString(36).slice(2)}`, []);
   const liveRef = useRef<HTMLDivElement | null>(null);
@@ -39,7 +43,7 @@ export default function Slideshow({
     if (liveRef.current) liveRef.current.textContent = msg;
   };
 
-  // Track prefers-reduced-motion
+  // prefers-reduced-motion
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => setPrefersReduced(mq.matches);
@@ -48,7 +52,16 @@ export default function Slideshow({
     return () => mq.removeEventListener?.("change", update);
   }, []);
 
-  // Autoplay scheduler (respects pause conditions)
+  // prefetch the next image to smooth transitions
+  useEffect(() => {
+    const nextPic = pictures?.[clamp(index + 1)];
+    if (nextPic?.src) {
+      const img = new Image();
+      img.src = nextPic.src;
+    }
+  }, [index, pictures]);
+
+  // autoplay, now CLS-safe since height is reserved
   useEffect(() => {
     if (!playing || prefersReduced || isMediaHover || isUserFocus || count < 2) return;
 
@@ -57,9 +70,7 @@ export default function Slideshow({
       timerRef.current = null;
     }
 
-    timerRef.current = window.setTimeout(() => {
-      next();
-    }, interval);
+    timerRef.current = window.setTimeout(() => next(), interval);
 
     return () => {
       if (timerRef.current !== null) {
@@ -69,10 +80,18 @@ export default function Slideshow({
     };
   }, [playing, index, interval, isMediaHover, isUserFocus, prefersReduced, count]);
 
-  // Announce slide changes for SR users
+  // SR announce
   useEffect(() => {
     if (count > 0) announce(`Slide ${index + 1} of ${count}`);
   }, [index, count]);
+
+  if (!pictures || count === 0) return null;
+  const pic = pictures[index];
+  const aspect = pic.width && pic.height ? `${pic.width} / ${pic.height}` : FALLBACK_ASPECT;
+
+  const isFirst = index === 0;
+  const isLoaded = !!loadedBySrc[pic.src];
+  const isAutoPaused = playing && (isMediaHover || isUserFocus || prefersReduced);
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
@@ -102,9 +121,6 @@ export default function Slideshow({
     }
   };
 
-  if (!pictures || count === 0) return null;
-  const pic = pictures[index];
-
   return (
     <section
       id={regionId}
@@ -130,21 +146,28 @@ export default function Slideshow({
       {/* Live region for announcements */}
       <div ref={liveRef} aria-live="polite" className="sr-only" />
 
-      {/* Media area (hover here pauses) */}
+      {/* Media area: aspect-ratio reserves height to prevent CLS */}
       <div
         className={clsx(
           "relative w-full overflow-hidden rounded-xl",
           "bg-[hsl(var(--card))] dark:bg-white/5",
         )}
-        onMouseEnter={() => {
-          setIsMediaHover(true);
-          if (timerRef.current !== null) {
-            window.clearTimeout(timerRef.current);
-            timerRef.current = null;
-          }
-        }}
+        style={{ aspectRatio: aspect }}
+        onMouseEnter={() => setIsMediaHover(true)}
         onMouseLeave={() => setIsMediaHover(false)}
       >
+        {/* Skeleton while image paints */}
+        {!isLoaded && (
+          <div
+            className={clsx(
+              "absolute inset-0 animate-pulse",
+              "bg-[hsl(var(--muted))] dark:bg-white/10",
+            )}
+            aria-hidden="true"
+          />
+        )}
+
+        {/* The image fills the reserved box without shifting layout */}
         <img
           key={pic.src}
           src={pic.src}
@@ -152,8 +175,15 @@ export default function Slideshow({
           width={pic.width}
           height={pic.height}
           decoding="async"
-          loading="eager"
-          className="mx-auto block h-auto max-h-[70vh] w-auto max-w-full object-contain"
+          loading={isFirst ? "eager" : "lazy"}
+          fetchPriority={isFirst ? ("high" as const) : ("auto" as const)}
+          onLoad={() => setLoadedBySrc((m) => (m[pic.src] ? m : { ...m, [pic.src]: true }))}
+          className={clsx(
+            "absolute inset-0 m-auto",
+            "h-full w-full object-contain",
+            "transition-opacity duration-300",
+            isLoaded ? "opacity-100" : "opacity-0",
+          )}
           sizes="(min-width: 1024px) 1024px, 100vw"
         />
 
@@ -266,13 +296,9 @@ export default function Slideshow({
 
 type Props = {
   pictures: Picture[];
-  /** ms per slide */
   interval?: number;
-  /** start in autoplay mode */
   autoPlay?: boolean;
-  /** accessible label for the whole slideshow */
   ariaLabel?: string;
-  /** loop around when reaching ends */
   loop?: boolean;
   className?: string;
 };
