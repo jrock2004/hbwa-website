@@ -18,11 +18,17 @@ export default function MoreDropdown({
   useOnClickOutside([btnRef, menuRef], () => open && setOpen(false));
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative self-end">
       <button
         ref={btnRef}
         type="button"
-        className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 rounded-md px-1 pb-1 leading-none focus:ring-2 focus:ring-[hsl(var(--ring))] focus:outline-none"
+        className={[
+          "inline-flex items-center gap-1 pb-1 leading-none transition-colors",
+          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--link-fg-hover)]",
+          open
+            ? "border-b-2 border-[var(--link-fg)] text-[var(--link-fg)]"
+            : "text-muted-foreground hover:text-[var(--link-fg)]",
+        ].join(" ")}
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen(!open)}

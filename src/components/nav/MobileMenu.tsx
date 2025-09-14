@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { motion, AnimatePresence, type Variants } from "motion/react";
 import { useFocusTrap } from "../../hooks/useFocusTrap";
 import type { NavItem } from "../../nav/items";
 
@@ -14,72 +15,101 @@ export default function MobileMenu({
   setOpen: (v: boolean) => void;
   primary: NavItem[];
   more: NavItem[];
-  toggleRef: React.MutableRefObject<HTMLButtonElement | null>; // 👈
+  toggleRef: React.MutableRefObject<HTMLButtonElement | null>;
 }) {
   const panelRef = useRef<HTMLDivElement | null>(null);
   useFocusTrap(open, panelRef);
 
+  // Close on Escape
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open, setOpen]);
+
+  const overlayVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+    exit: { opacity: 0 },
+  };
+
+  const panelVariants: Variants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 320, damping: 28 },
+    },
+    exit: { opacity: 0, y: -20, transition: { duration: 0.15 } },
+  };
+
   return (
-    <div
-      id="mobile-overlay"
-      className={[
-        "fixed inset-x-0 bottom-0 z-40 md:hidden",
-        "top-16",
-        open ? "pointer-events-auto" : "pointer-events-none",
-      ].join(" ")}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) setOpen(false);
-      }}
-    >
-      {/* Scrim */}
-      <div
-        className={[
-          "absolute inset-0 bg-black/30 backdrop-blur-[2px]",
-          "transition-opacity duration-300",
-          open ? "opacity-100" : "opacity-0",
-        ].join(" ")}
-      />
-      {/* Panel */}
-      <div
-        ref={panelRef}
-        tabIndex={-1}
-        role="navigation"
-        aria-label="Mobile navigation"
-        className={[
-          "bg-background border-border relative border-t shadow-xl",
-          "transition-[transform,opacity] duration-300 ease-out",
-          open ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0",
-        ].join(" ")}
-      >
-        <div className="container-page flex flex-col gap-5 py-4">
-          <Section title="Primary">
-            {primary.map((n) => (
-              <MobileLink key={n.to} to={n.to} onClick={() => setOpen(false)}>
-                {n.label}
-              </MobileLink>
-            ))}
-          </Section>
+    <AnimatePresence>
+      {open && (
+        <div
+          id="mobile-overlay"
+          className="fixed inset-x-0 top-16 bottom-0 z-50 md:hidden"
+          aria-hidden={!open}
+        >
+          {/* Scrim */}
+          <motion.div
+            key="scrim"
+            className="absolute inset-0 bg-black/30 backdrop-blur-[2px]"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={overlayVariants}
+            transition={{ duration: 0.2 }}
+            onClick={() => setOpen(false)}
+          />
 
-          <Section title="More">
-            {more.map((m) => (
-              <MobileLink key={m.to} to={m.to} onClick={() => setOpen(false)}>
-                {m.label}
-              </MobileLink>
-            ))}
-          </Section>
-
-          <button
-            onClick={() => {
-              setOpen(false);
-              toggleRef.current?.focus();
-            }}
-            className="border-border self-start rounded-md border px-3 py-2 text-sm focus:ring-2 focus:ring-[hsl(var(--ring))] focus:outline-none"
+          {/* Panel */}
+          <motion.div
+            key="panel"
+            ref={panelRef}
+            tabIndex={-1}
+            role="navigation"
+            aria-label="Mobile navigation"
+            className="bg-background border-border relative border-t shadow-xl"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={panelVariants}
           >
-            Close
-          </button>
+            <div className="container-page flex flex-col gap-5 py-4">
+              <Section title="Primary">
+                {primary.map((n) => (
+                  <MobileLink key={n.to} to={n.to} onClick={() => setOpen(false)}>
+                    {n.label}
+                  </MobileLink>
+                ))}
+              </Section>
+
+              <Section title="More">
+                {more.map((m) => (
+                  <MobileLink key={m.to} to={m.to} onClick={() => setOpen(false)}>
+                    {m.label}
+                  </MobileLink>
+                ))}
+              </Section>
+
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  toggleRef.current?.focus();
+                }}
+                className="border-border self-start rounded-md border px-3 py-2 text-sm focus:ring-2 focus:ring-[hsl(var(--ring))] focus:outline-none"
+              >
+                Close
+              </button>
+            </div>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 }
 

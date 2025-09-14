@@ -16,7 +16,7 @@ export default function DesktopNav({
   className?: string;
 }) {
   return (
-    <nav className={`hidden gap-6 text-sm md:flex ${className}`} aria-label="Primary">
+    <nav className={`hidden items-end gap-6 text-sm md:flex ${className}`} aria-label="Primary">
       {primary.map((n) => (
         <NavLinkItem key={n.to} to={n.to} exact={n.exact}>
           {n.label}
