@@ -1,7 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import clsx from "clsx";
 import type { Picture } from "@/config/picturesConfig";
-import { motion, AnimatePresence } from "motion/react";
+import { SlideshowImage } from "./SlideshowImage";
+import { SlideshowCaption } from "./SlideshowCaption";
+import { SlideshowControls } from "./SlideshowControls";
+import { SlideshowDots } from "./SlideshowDots";
+import { A11yPanels } from "./A11yPanels";
 
 // tweak here if you want a default ratio when width/height are missing
 const FALLBACK_ASPECT = "16 / 9";
@@ -34,23 +38,31 @@ export default function Slideshow({
   const liveRef = useRef<HTMLDivElement | null>(null);
   const timerRef = useRef<number | null>(null);
 
-  const clamp = (i: number) => {
-    if (loop) return (i + count) % count;
-    return Math.max(0, Math.min(count - 1, i));
-  };
+  const clamp = useCallback(
+    (i: number) => {
+      if (loop) return (i + count) % count;
+      return Math.max(0, Math.min(count - 1, i));
+    },
+    [loop, count],
+  );
 
-  const next = () => {
+  const next = useCallback(() => {
     setDirection(1);
     setIndex((i) => clamp(i + 1));
-  };
-  const prev = () => {
+  }, [clamp]);
+
+  const prev = useCallback(() => {
     setDirection(-1);
     setIndex((i) => clamp(i - 1));
-  };
-  const goTo = (i: number) => {
-    setDirection(i > index ? 1 : -1);
-    setIndex(clamp(i));
-  };
+  }, [clamp]);
+
+  const goTo = useCallback(
+    (i: number) => {
+      setDirection(i > index ? 1 : -1);
+      setIndex(clamp(i));
+    },
+    [clamp, index],
+  );
 
   const announce = (msg: string) => {
     if (liveRef.current) liveRef.current.textContent = msg;
@@ -72,7 +84,7 @@ export default function Slideshow({
       const img = new Image();
       img.src = nextPic.src;
     }
-  }, [index, pictures]);
+  }, [index, pictures, clamp]);
 
   // autoplay, CLS-safe since height is reserved
   useEffect(() => {
@@ -91,7 +103,7 @@ export default function Slideshow({
         timerRef.current = null;
       }
     };
-  }, [playing, index, interval, isMediaHover, isUserFocus, prefersReduced, count]);
+  }, [playing, index, interval, isMediaHover, isUserFocus, prefersReduced, count, next]);
 
   // SR announce
   useEffect(() => {
@@ -183,141 +195,37 @@ export default function Slideshow({
           />
         )}
 
-        {/* Animated slide/fade image (Motion.dev API) */}
-        <AnimatePresence>
-          <motion.img
-            key={pic.src}
-            initial={{ x: direction * dx, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -direction * dx, opacity: 0 }}
-            transition={{ duration: 0.28 }}
-            src={pic.src}
-            alt={pic.alt}
-            width={pic.width}
-            height={pic.height}
-            decoding="async"
-            loading={isFirst ? "eager" : "lazy"}
-            fetchPriority={isFirst ? ("high" as const) : ("auto" as const)}
-            onLoad={() => setLoadedBySrc((m) => (m[pic.src] ? m : { ...m, [pic.src]: true }))}
-            className={clsx(
-              "absolute inset-0 m-auto h-full w-full object-contain",
-              "transition-opacity duration-200",
-              isLoaded ? "opacity-100" : "opacity-0",
-            )}
-            sizes="(min-width: 1024px) 1024px, 100vw"
-          />
-        </AnimatePresence>
+        {/* Animated slide/fade image */}
+        <SlideshowImage
+          src={pic.src}
+          alt={pic.alt}
+          width={pic.width}
+          height={pic.height}
+          isLoaded={isLoaded}
+          isFirst={isFirst}
+          direction={direction}
+          dx={dx}
+          onLoad={() => setLoadedBySrc((m) => (m[pic.src] ? m : { ...m, [pic.src]: true }))}
+        />
 
-        {(pic.title || pic.caption) && (
-          <AnimatePresence>
-            <motion.figcaption
-              key={`${pic.src}-caption`}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 6 }}
-              transition={{ duration: 0.18 }}
-              className={clsx(
-                "pointer-events-none absolute inset-x-0 bottom-0",
-                "flex flex-col gap-0.5 p-3 sm:p-4",
-                "bg-gradient-to-t from-black/60 to-transparent text-white",
-              )}
-            >
-              {pic.title && <span className="text-sm font-medium sm:text-base">{pic.title}</span>}
-              {pic.caption && <span className="text-xs opacity-90 sm:text-sm">{pic.caption}</span>}
-            </motion.figcaption>
-          </AnimatePresence>
-        )}
+        {/* Caption overlay */}
+        <SlideshowCaption src={pic.src} title={pic.title} caption={pic.caption} />
       </div>
 
-      {/* Controls */}
+      {/* Controls and dots */}
       <div className="mt-3 flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={prev}
-            className={clsx(
-              "inline-flex items-center gap-1 rounded-xl px-3 py-1.5 text-sm",
-              "bg-[hsl(var(--muted))] text-[hsl(var(--foreground))]",
-              "hover:bg-[hsl(var(--muted)/0.9)]",
-              "focus-visible:ring-2 focus-visible:ring-[hsl(var(--brand))] focus-visible:outline-none",
-            )}
-            aria-label="Previous slide"
-          >
-            <span aria-hidden>◀</span>
-            <span className="sr-only sm:not-sr-only">Prev</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setPlaying((p) => !p)}
-            className={clsx(
-              "inline-flex items-center gap-1 rounded-xl px-3 py-1.5 text-sm",
-              "bg-[hsl(var(--muted))] text-[hsl(var(--foreground))]",
-              "hover:bg-[hsl(var(--muted)/0.9)]",
-              "focus-visible:ring-2 focus-visible:ring-[hsl(var(--brand))] focus-visible:outline-none",
-            )}
-            aria-pressed={playing}
-            aria-label={
-              !playing
-                ? "Play slideshow"
-                : isAutoPaused
-                  ? "Slideshow paused temporarily (hover/focus)"
-                  : "Pause slideshow"
-            }
-            title={!playing ? "Play" : isAutoPaused ? "Paused while hovered or focused" : "Pause"}
-          >
-            <span aria-hidden>{!playing ? "▶" : "⏸"}</span>
-            <span className="sr-only sm:not-sr-only">
-              {!playing ? "Play" : isAutoPaused ? "Paused (hover)" : "Pause"}
-            </span>
-          </button>
-
-          <button
-            type="button"
-            onClick={next}
-            className={clsx(
-              "inline-flex items-center gap-1 rounded-xl px-3 py-1.5 text-sm",
-              "bg-[hsl(var(--muted))] text-[hsl(var(--foreground))]",
-              "hover:bg-[hsl(var(--muted)/0.9)]",
-              "focus-visible:ring-2 focus-visible:ring-[hsl(var(--brand))] focus-visible:outline-none",
-            )}
-            aria-label="Next slide"
-          >
-            <span className="sr-only sm:not-sr-only">Next</span>
-            <span aria-hidden>▶</span>
-          </button>
-        </div>
-
-        {/* Dots */}
-        <div className="flex items-center gap-1.5" role="tablist" aria-label="Slides">
-          {pictures.map((_, i) => (
-            <button
-              key={i}
-              role="tab"
-              aria-selected={i === index}
-              aria-controls={`${regionId}-panel-${i}`}
-              aria-label={`Go to slide ${i + 1}`}
-              onClick={() => goTo(i)}
-              className={clsx(
-                "h-2.5 w-2.5 rounded-full ring-offset-2 outline-none",
-                i === index
-                  ? "bg-[hsl(var(--brand))] ring-1 ring-[hsl(var(--brand))]"
-                  : "bg-[hsl(var(--muted-foreground)/0.4)] hover:bg-[hsl(var(--muted-foreground)/0.6)]",
-                "focus-visible:ring-2 focus-visible:ring-[hsl(var(--brand))]",
-              )}
-            />
-          ))}
-        </div>
+        <SlideshowControls
+          onPrev={prev}
+          onNext={next}
+          playing={playing}
+          onPlayPause={() => setPlaying((p) => !p)}
+          isAutoPaused={isAutoPaused}
+        />
+        <SlideshowDots count={count} current={index} regionId={regionId} goTo={goTo} />
       </div>
 
       {/* Hidden panels for a11y mapping */}
-      <div className="sr-only" aria-live="polite">
-        {pictures.map((p, i) => (
-          <div key={i} id={`${regionId}-panel-${i}`} role="tabpanel">
-            {p.title || p.caption || p.alt}
-          </div>
-        ))}
-      </div>
+      <A11yPanels pictures={pictures} regionId={regionId} />
     </section>
   );
 }
