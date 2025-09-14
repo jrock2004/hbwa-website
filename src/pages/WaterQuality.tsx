@@ -5,13 +5,20 @@ import {
   ArrowTopRightOnSquareIcon,
   BuildingOffice2Icon,
 } from "@heroicons/react/24/outline";
-import type { Report } from "../config/reportConfig";
-import { useReports } from "../hooks/useReports";
+import type { DocumentItem } from "../config/documentsConfig";
+import { useDocuments } from "@/hooks/useDocuments";
 
 export default function WaterQuality() {
-  const { reports, loading, error } = useReports();
+  const { documents, loading, error } = useDocuments();
+  const reports = useMemo(
+    () => (documents ? documents.filter((d) => d.category === "Reports") : []),
+    [documents],
+  );
   const latestYear = useMemo(
-    () => (reports.length ? Math.max(...reports.map((r: Report) => r.year)) : undefined),
+    () =>
+      reports.length
+        ? Math.max(...reports.map((r: DocumentItem) => new Date(r.date).getFullYear()))
+        : undefined,
     [reports],
   );
 
@@ -66,34 +73,42 @@ export default function WaterQuality() {
           {!loading &&
             !error &&
             reports
-              .sort((a: Report, b: Report) => b.year - a.year)
+              .sort((a: DocumentItem, b: DocumentItem) => {
+                // Sort by year descending, extracted from ISO date string
+                const yearA = new Date(a.date).getFullYear();
+                const yearB = new Date(b.date).getFullYear();
+                return yearB - yearA;
+              })
               .slice(0, 3)
-              .map((r: Report) => (
-                <li
-                  key={r.year}
-                  className="group bg-card rounded-2xl border p-5 shadow-sm transition hover:shadow-md"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <h3 className="text-lg font-semibold">{r.year} CCR</h3>
-                      <p className="text-muted-foreground mt-1 text-sm">
-                        {r.note ?? "Annual Drinking Water Quality Report"}
-                      </p>
+              .map((r: DocumentItem) => {
+                const year = new Date(r.date).getFullYear();
+                return (
+                  <li
+                    key={r.id}
+                    className="group bg-card rounded-2xl border p-5 shadow-sm transition hover:shadow-md"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <h3 className="text-lg font-semibold">{year} CCR</h3>
+                        <p className="text-muted-foreground mt-1 text-sm">
+                          {r.title ?? "Annual Drinking Water Quality Report"}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="mt-4 flex flex-wrap items-center gap-3">
-                    <a
-                      href={r.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:bg-muted focus:ring-ring inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm font-medium focus:ring-2 focus:outline-none"
-                    >
-                      <ArrowDownTrayIcon className="size-5" />
-                      <span>Open PDF</span>
-                    </a>
-                  </div>
-                </li>
-              ))}
+                    <div className="mt-4 flex flex-wrap items-center gap-3">
+                      <a
+                        href={r.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:bg-muted focus:ring-ring inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm font-medium focus:ring-2 focus:outline-none"
+                      >
+                        <ArrowDownTrayIcon className="size-5" />
+                        <span>Open PDF</span>
+                      </a>
+                    </div>
+                  </li>
+                );
+              })}
         </ul>
         <p className="text-muted-foreground mt-4 text-sm">
           Need an older CCR?{" "}

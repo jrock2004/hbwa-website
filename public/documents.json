@@ -1,0 +1,109 @@
+[
+  {
+    "id": "policy-rtk",
+    "title": "Right-To-Know Policy",
+    "url": "/docs/forms/right_to_know_policy.pdf",
+    "date": "2024-01-01",
+    "category": "Forms"
+  },
+  {
+    "id": "form-rtk",
+    "title": "Standard Right-To-Know Request Form",
+    "url": "/docs/forms/form_righttoknow_request.pdf",
+    "date": "2024-01-01",
+    "category": "Forms"
+  },
+
+  {
+    "id": "agenda-2025-06-03",
+    "title": "June 3rd 2025 Meeting Agenda",
+    "url": "/docs/minutes/Agenda 6-3-25.pdf",
+    "date": "2025-06-03",
+    "category": "Minutes"
+  },
+  {
+    "id": "agenda-2025-07-01",
+    "title": "July 1st 2025 Meeting Agenda",
+    "url": "/docs/minutes/Agenda 7-1-25.pdf",
+    "date": "2025-07-01",
+    "category": "Minutes"
+  },
+  {
+    "id": "agenda-2025-08-05",
+    "title": "August 5th 2025 Meeting Agenda",
+    "url": "/docs/minutes/Agenda 8-5-25.pdf",
+    "date": "2025-08-05",
+    "category": "Minutes"
+  },
+  {
+    "id": "agenda-2025-09-02",
+    "title": "September 2nd 2025 Meeting Agenda",
+    "url": "/docs/minutes/Agenda 9-2-25.pdf",
+    "date": "2025-09-02",
+    "category": "Minutes"
+  },
+
+  {
+    "id": "ccr-2024",
+    "title": "2024 Consumer Confidence Report (CCR)",
+    "url": "/docs/reports/2024ccr.pdf",
+    "date": "2024-06-01",
+    "category": "Reports"
+  },
+  {
+    "id": "ccr-2023",
+    "title": "2023 Consumer Confidence Report (CCR)",
+    "url": "/docs/reports/2023ccr.pdf",
+    "date": "2023-06-01",
+    "category": "Reports"
+  },
+  {
+    "id": "ccr-2022",
+    "title": "2022 Consumer Confidence Report (CCR)",
+    "url": "/docs/reports/2022ccr.pdf",
+    "date": "2022-06-01",
+    "category": "Reports"
+  },
+  {
+    "id": "ccr-2021",
+    "title": "2021 Consumer Confidence Report (CCR)",
+    "url": "/docs/reports/2021ccr.pdf",
+    "date": "2021-06-01",
+    "category": "Reports"
+  },
+  {
+    "id": "ccr-2020",
+    "title": "2020 Consumer Confidence Report (CCR)",
+    "url": "/docs/reports/2020ccr.pdf",
+    "date": "2020-06-01",
+    "category": "Reports"
+  },
+  {
+    "id": "ccr-2019",
+    "title": "2019 Consumer Confidence Report (CCR)",
+    "url": "/docs/reports/2019ccr.pdf",
+    "date": "2019-06-01",
+    "category": "Reports"
+  },
+  {
+    "id": "ccr-2018",
+    "title": "2018 Consumer Confidence Report (CCR)",
+    "url": "/docs/reports/2018ccr.pdf",
+    "date": "2018-06-01",
+    "category": "Reports"
+  },
+  {
+    "id": "ccr-2017",
+    "title": "2017 Consumer Confidence Report (CCR)",
+    "url": "/docs/reports/2017ccr.pdf",
+    "date": "2017-06-01",
+    "category": "Reports"
+  },
+  {
+    "id": "ccr-2016",
+    "title": "2016 Consumer Confidence Report (CCR)",
+    "url": "/docs/reports/2016ccr.pdf",
+    "date": "2016-06-01",
+    "category": "Reports"
+  }
+]

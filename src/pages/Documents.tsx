@@ -1,19 +1,27 @@
 import { useMemo, useState } from "react";
-import { DOCUMENTS, type DocumentItem } from "../data/documents";
-
-const CATS: DocumentItem["category"][] = ["Minutes", "Reports", "Forms", "Notices", "Other"];
+import { useDocuments } from "@/hooks/useDocuments";
+import type { DocumentItem } from "@/config/documentsConfig";
 
 export default function DocumentsPage() {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<"All" | DocumentItem["category"]>("All");
+  const { documents } = useDocuments();
+
+  const categories = useMemo(() => {
+    const cats = new Set<string>();
+    documents.forEach((d) => {
+      if (d.category) cats.add(d.category);
+    });
+    return Array.from(cats).sort();
+  }, [documents]);
 
   const items = useMemo(() => {
     const term = q.trim().toLowerCase();
-    let list = [...DOCUMENTS];
+    let list = [...documents];
     if (cat !== "All") list = list.filter((d) => d.category === cat);
     if (term) list = list.filter((d) => d.title.toLowerCase().includes(term));
     return list.sort((a, b) => b.date.localeCompare(a.date));
-  }, [q, cat]);
+  }, [q, cat, documents]);
 
   return (
     <main className="container-page py-10">
@@ -29,12 +37,12 @@ export default function DocumentsPage() {
         />
         <select
           value={cat}
-          onChange={(e) => setCat(e.target.value as any)}
+          onChange={(e) => setCat(e.target.value as "All" | DocumentItem["category"])}
           className="border-border bg-background rounded-md border px-2 py-2"
           aria-label="Filter by category"
         >
           <option value="All">All categories</option>
-          {CATS.map((c) => (
+          {categories.map((c) => (
             <option key={c} value={c}>
               {c}
             </option>
