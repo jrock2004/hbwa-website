@@ -43,7 +43,7 @@ export default function Navbar() {
     <header className="bg-background/80 border-border sticky top-0 z-50 border-b backdrop-blur">
       <div className="container-page flex h-16 items-center">
         {/* Full title on the left */}
-        <Link to="/" className="text-base font-semibold whitespace-nowrap md:text-lg">
+        <Link to="/" className="link text-base font-semibold whitespace-nowrap md:text-lg">
           {config.siteTitle}
         </Link>
 

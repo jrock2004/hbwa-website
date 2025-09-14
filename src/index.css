@@ -56,16 +56,4 @@ html {
     color: hsl(var(--foreground));
     background: hsl(var(--background));
   }
-
-  a {
-    color: hsl(var(--link));
-    text-underline-offset: 2px;
-  }
-  a:hover {
-    color: hsl(var(--link-hover));
-    text-decoration: underline;
-  }
-  a:visited {
-    color: hsl(var(--link-visited));
-  }
 }

@@ -15,7 +15,7 @@ export function QuickLinks() {
         <ul className="mt-4 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
           {config.quickLinks.map((l) => (
             <li key={l.to} className="bg-card border-border rounded border p-4">
-              <Link to={l.to} className="block text-sm">
+              <Link to={l.to} className="link block text-sm">
                 {l.label}
               </Link>
               <p className="text-muted-foreground mt-1 text-xs">Navigate to {l.label}</p>

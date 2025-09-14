@@ -13,7 +13,7 @@ export function NoticesPreview() {
         <h2 id="notices-heading" className="text-base font-semibold">
           Notices
         </h2>
-        <Link to={ROUTES.alerts} className="text-muted-foreground text-xs">
+        <Link to={ROUTES.alerts} className="link text-muted-foreground text-xs">
           View all →
         </Link>
       </div>
@@ -23,7 +23,7 @@ export function NoticesPreview() {
             <h3 className="text-sm font-medium">{n.title}</h3>
             <time className="text-muted-foreground block text-[12px]">{n.date}</time>
             <div className="mt-3">
-              <Link to={n.to} className="text-xs">
+              <Link to={n.to} className="link text-xs">
                 Read more →
               </Link>
             </div>
