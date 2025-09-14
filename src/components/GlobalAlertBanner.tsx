@@ -50,7 +50,7 @@ export default function GlobalAlertBanner() {
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("hbwa.alertBanner.dismissed");
+      const saved = sessionStorage.getItem("hbwa.alertBanner.dismissed");
       setDismissedSig(saved);
     } catch {
       /* ignore */
@@ -60,7 +60,7 @@ export default function GlobalAlertBanner() {
   useEffect(() => {
     if (signature && dismissedSig && dismissedSig !== signature) {
       try {
-        localStorage.removeItem("hbwa.alertBanner.dismissed");
+        sessionStorage.removeItem("hbwa.alertBanner.dismissed");
       } catch {
         /* ignore */
       }
@@ -71,7 +71,7 @@ export default function GlobalAlertBanner() {
   const dismiss = () => {
     if (!signature) return;
     try {
-      localStorage.setItem("hbwa.alertBanner.dismissed", signature);
+      sessionStorage.setItem("hbwa.alertBanner.dismissed", signature);
     } catch {
       /* ignore */
     }
