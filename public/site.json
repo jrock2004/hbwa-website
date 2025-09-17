@@ -31,7 +31,11 @@
     "title": "Honey Brook Water Authority",
     "tagline": "Providing safe, reliable water service to Honey Brook Borough & Township.",
     "ctas": [
-      { "label": "Pay Bill", "to": "/pay", "variant": "primary" },
+      {
+        "label": "Pay Bill",
+        "to": "https://hbbawater.citizenactioncenter.com/utility-index",
+        "variant": "primary"
+      },
       { "label": "View Alerts", "to": "/alerts", "variant": "ghost" },
       { "label": "2024 Water Quality Report", "to": "/water-quality", "variant": "outline" }
     ],
