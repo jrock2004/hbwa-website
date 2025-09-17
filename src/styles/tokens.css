@@ -1,5 +1,23 @@
 :root {
-  --brand: 203 92% 19%;
+  /*
+    Example --brand color options (uncomment to use):
+    --brand: 203 92% 19%; // Blue (current, HSL)
+    --brand: 210 29% 32%; // Blue (#2a6fa1)
+    --brand: 146 50% 20%; // Deep Green (#1a4d2e)
+    --brand: 356 68% 45%; // Red (#b22234)
+    --brand: 44 98% 54%;  // Gold/Yellow (#fdb813)
+    --brand: 0 0% 23%;    // Charcoal (#3a3a3a)
+    --brand: 174 89% 25%; // Teal (#00796b)
+    --brand: 277 70% 34%; // Purple (#6a1b9a)
+    --brand: 222 47% 11%; // Navy/Dark Blue (#1a2236)
+    --brand: 210 40% 98%; // Light Blue (#f5faff)
+    --brand: 215 16% 47%; // Slate (#4b5a6a)
+    --brand: 192 100% 36%; // Aqua (#00bcd4)
+    --brand: 120 61% 50%; // Green (#43a047)
+    --brand: 30 100% 50%; // Orange (#ff9800)
+    --brand: 0 0% 100%;   // White (#ffffff)
+  */
+  --brand: 210 29% 32%;
   --brand-foreground: 0 0% 100%;
 
   --background: 0 0% 100%;
@@ -23,6 +41,7 @@
 }
 
 html.dark {
+  --brand: 203 100% 50%;
   --background: 222 47% 11%;
   --foreground: 210 40% 98%;
 
