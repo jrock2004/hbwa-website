@@ -7,13 +7,15 @@ import { UtilityRow } from "../components/home/utility-row";
 
 export default function Home() {
   return (
-    <main className="container-page py-10">
-      <Hero />
-      <NoticesPreview />
-      <QuickLinks />
-      <AboutHighlights />
-      <FeatureCcr />
-      <UtilityRow />
-    </main>
+    <>
+      <main className="container-page py-10">
+        <Hero />
+        <NoticesPreview />
+        <AboutHighlights />
+        <FeatureCcr />
+        <UtilityRow />
+        <QuickLinks />
+      </main>
+    </>
   );
 }

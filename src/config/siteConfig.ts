@@ -53,7 +53,7 @@ export const SiteConfigSchema = z.object({
     )
     .default([]),
   quickLinks: z.array(LinkItem).default([]),
-  siteTitle: z.string().default("Honey Brook Water Authority"),
+  siteTitle: z.string().default("Honey Brook Brough Authority"),
 });
 
 export type SiteConfig = z.infer<typeof SiteConfigSchema>;
