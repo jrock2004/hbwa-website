@@ -1,11 +1,5 @@
-// src/pages/ErrorPage.tsx
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useRouteError,
-  isRouteErrorResponse,
-} from "react-router-dom";
+import type { JSX } from "react";
+import { Link, useLocation, useNavigate, useRouteError } from "react-router-dom";
 import NotFound from "./NotFound";
 import {
   ExclamationTriangleIcon,
@@ -18,18 +12,25 @@ import {
 import { useSiteConfig } from "@/hooks/useSiteConfig";
 import WaveFooter from "@/components/WaveFooter";
 
-export default function ErrorPage() {
-  const err = useRouteError() as unknown;
+export default function ErrorPage(): JSX.Element {
+  const err = useRouteError();
   const nav = useNavigate();
   const loc = useLocation();
   const { data: site } = useSiteConfig();
 
-  const isResp = isRouteErrorResponse(err as any);
-  const status = isResp ? (err as any).status : 500;
-  const statusText = isResp ? (err as any).statusText : "Internal Error";
+  function isRouteErrorResponseType(error: unknown): error is RouteErrorResponse {
+    return (
+      typeof error === "object" && error !== null && "status" in error && "statusText" in error
+    );
+  }
+
+  const isResp = isRouteErrorResponseType(err);
+  const status = isResp ? err.status : 500;
+  const statusText = isResp ? err.statusText : "Internal Error";
+
   const message =
-    (isResp && (err as any).data && (err as any).data.message) ||
-    (err as any)?.message ||
+    (isResp && err.data?.message) ||
+    (err instanceof Error ? err.message : undefined) ||
     "Something went wrong while loading this page.";
 
   if (status === 404) return <NotFound />;
@@ -167,7 +168,7 @@ export default function ErrorPage() {
                     {status} {statusText}
                     {"\n"}
                     {message}
-                    {(err as any)?.stack ? "\n\n" + (err as any).stack : ""}
+                    {hasStack(err) ? "\n\n" + err.stack : ""}
                   </pre>
                 </details>
               )}
@@ -180,4 +181,19 @@ export default function ErrorPage() {
       </div>
     </section>
   );
+}
+
+function hasStack(error: unknown): error is { stack: string } {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "stack" in error &&
+    typeof (error as Record<string, unknown>).stack === "string"
+  );
+}
+
+interface RouteErrorResponse {
+  status: number;
+  statusText: string;
+  data?: { message?: string };
 }
