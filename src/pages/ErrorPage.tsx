@@ -16,6 +16,7 @@ import {
   HomeIcon,
 } from "@heroicons/react/24/outline";
 import { useSiteConfig } from "@/hooks/useSiteConfig";
+import WaveFooter from "@/components/WaveFooter";
 
 export default function ErrorPage() {
   const err = useRouteError() as unknown;
@@ -52,12 +53,7 @@ export default function ErrorPage() {
   const IMAGE_SRC = "/images/error-image.png"; // public/images/error-image.png
 
   return (
-    <main className="relative isolate min-h-[calc(100dvh-4rem)] bg-[hsl(var(--background))]">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[hsl(var(--muted))] to-transparent"
-      />
-
+    <section className="relative isolate flex min-h-full flex-col overflow-hidden">
       <section className="mx-auto max-w-5xl px-4 py-10 sm:py-16">
         {/* Emergency / main break CTA */}
         <div
@@ -179,6 +175,9 @@ export default function ErrorPage() {
           </div>
         </div>
       </section>
-    </main>
+      <div className="relative mt-auto">
+        <WaveFooter />
+      </div>
+    </section>
   );
 }

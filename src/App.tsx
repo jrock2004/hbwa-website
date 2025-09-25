@@ -6,7 +6,7 @@ import Seo from "./components/Seo";
 
 export default function App() {
   return (
-    <div className="bg-background text-foreground theme-transition flex min-h-svh flex-col">
+    <div className="bg-background text-foreground theme-transition grid min-h-svh grid-rows-[auto,1fr,auto]">
       <Seo />
       <a
         href="#main"
