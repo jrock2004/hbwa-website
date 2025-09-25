@@ -18,26 +18,35 @@ import WaterQuality from "./pages/WaterQuality";
 
 import NotFound from "./pages/NotFound";
 import { HelmetProvider } from "react-helmet-async";
+import ErrorPage from "./pages/ErrorPage";
+import Broken from "./pages/Broken";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+
     children: [
-      { index: true, element: <Home /> },
-      { path: "about", element: <About /> },
-      { path: "services", element: <Services /> },
-      { path: "documents", element: <DocumentsPage /> },
-      { path: "alerts", element: <AlertsPage /> },
-      { path: "contact", element: <Contact /> },
-      { path: "water-quality", element: <WaterQuality /> },
-      { path: "rates", element: <Rates /> },
-      { path: "governance", element: <Governance /> },
-      { path: "policies", element: <Policies /> },
-      { path: "conservation", element: <Conservation /> },
-      { path: "links", element: <Links /> },
-      { path: "gallery", element: <Gallery /> },
-      { path: "*", element: <NotFound /> },
+      {
+        errorElement: <ErrorPage />,
+        children: [
+          { index: true, element: <Home /> },
+          { path: "about", element: <About /> },
+          { path: "services", element: <Services /> },
+          { path: "documents", element: <DocumentsPage /> },
+          { path: "alerts", element: <AlertsPage /> },
+          { path: "contact", element: <Contact /> },
+          { path: "water-quality", element: <WaterQuality /> },
+          { path: "rates", element: <Rates /> },
+          { path: "governance", element: <Governance /> },
+          { path: "policies", element: <Policies /> },
+          { path: "conservation", element: <Conservation /> },
+          { path: "links", element: <Links /> },
+          { path: "gallery", element: <Gallery /> },
+          { path: "broken", element: <Broken /> },
+          { path: "*", element: <NotFound /> },
+        ],
+      },
     ],
   },
 ]);
