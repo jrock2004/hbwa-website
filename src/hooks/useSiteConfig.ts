@@ -1,23 +1,15 @@
-import { useEffect, useState } from "react";
 import { SiteConfigSchema, type SiteConfig } from "@/config/siteConfig";
+import { useJsonConfig } from "./useJsonConfig";
 
-export function useSiteConfig() {
-  const [data, setData] = useState<SiteConfig | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetch("/site.json", { cache: "no-store" })
-      .then((r) => r.json())
-      .then((json) => {
-        const parsed = SiteConfigSchema.safeParse(json);
-        if (!parsed.success) {
-          setError("Config error: please check site.json (fields or commas).");
-          return;
-        }
-        setData(parsed.data);
-      })
-      .catch(() => setError("Could not load site.json"));
-  }, []);
-
-  return { data, error, isLoading: !data && !error };
+export function useSiteConfig(): {
+  data: SiteConfig | null;
+  error: string | null;
+  isLoading: boolean;
+} {
+  const state = useJsonConfig("/site.json", SiteConfigSchema);
+  return {
+    data: state.status === "success" ? state.data : null,
+    error: state.status === "error" ? state.error.message : null,
+    isLoading: state.status === "idle" || state.status === "loading",
+  };
 }

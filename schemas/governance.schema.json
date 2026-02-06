@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "governance.schema.json",
+  "title": "Governance Config",
+  "description": "Board members, employees, consultants, and memberships.",
+  "type": "object",
+  "required": ["board", "employees", "consultants", "memberships"],
+  "properties": {
+    "board": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Person" }
+    },
+    "employees": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Person" }
+    },
+    "consultants": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Person" }
+    },
+    "memberships": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "Person": {
+      "type": "object",
+      "required": ["role", "name"],
+      "properties": {
+        "role": { "type": "string" },
+        "name": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

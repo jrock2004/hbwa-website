@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "alerts.schema.json",
+  "title": "Alerts",
+  "description": "Array of active emergency and non-emergency alerts.",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/Alert"
+  },
+  "$defs": {
+    "Alert": {
+      "type": "object",
+      "required": ["description", "effectiveFrom", "id", "severity", "title"],
+      "properties": {
+        "description": { "type": "string" },
+        "effectiveFrom": { "type": "string" },
+        "effectiveTo": { "type": ["string", "null"] },
+        "id": { "type": "string" },
+        "lastUpdated": { "type": "string" },
+        "link": { "type": ["string", "null"] },
+        "severity": { "type": "string", "enum": ["emergency", "notice"] },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "title": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,21 +1,16 @@
-import { useEffect, useState } from "react";
-import type { DocumentItem } from "../config/documentsConfig";
+import { DocumentsSchema } from "@/config/documentsConfig";
+import type { DocumentItem } from "@/config/documentsConfig";
+import { useJsonConfig } from "./useJsonConfig";
 
-export function useDocuments() {
-  const [documents, setDocuments] = useState<DocumentItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    fetch("/documents.json")
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch reports");
-        return res.json();
-      })
-      .then((data) => setDocuments(data))
-      .catch((err) => setError(err))
-      .finally(() => setLoading(false));
-  }, []);
-
-  return { documents, loading, error };
+export function useDocuments(): {
+  documents: DocumentItem[];
+  loading: boolean;
+  error: Error | null;
+} {
+  const state = useJsonConfig("/documents.json", DocumentsSchema);
+  return {
+    documents: state.status === "success" ? state.data : [],
+    loading: state.status === "idle" || state.status === "loading",
+    error: state.status === "error" ? state.error : null,
+  };
 }

@@ -1,13 +1,13 @@
 import { z } from "zod";
 
-const RouteMetaSchema = z.object({
+export const RouteMetaSchema = z.object({
   title: z.string(),
   description: z.string(),
   ogImage: z.string().optional(),
   noindex: z.boolean().optional(),
 });
 
-const MetaConfigSchema = z.object({
+export const MetaConfigSchema = z.object({
   defaults: z.object({
     siteName: z.string(),
     titleTemplate: z.string(),

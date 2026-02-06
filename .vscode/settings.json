@@ -1,0 +1,18 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[javascriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[typescriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "json.schemas": [
+    { "fileMatch": ["public/site.json"], "url": "./schemas/site.schema.json" },
+    { "fileMatch": ["public/meta.json"], "url": "./schemas/meta.schema.json" },
+    { "fileMatch": ["public/alerts.json"], "url": "./schemas/alerts.schema.json" },
+    { "fileMatch": ["public/rates.json"], "url": "./schemas/rates.schema.json" },
+    { "fileMatch": ["public/governance.json"], "url": "./schemas/governance.schema.json" },
+    { "fileMatch": ["public/links.json"], "url": "./schemas/links.schema.json" },
+    { "fileMatch": ["public/documents.json"], "url": "./schemas/documents.schema.json" },
+    { "fileMatch": ["public/pictures.json"], "url": "./schemas/pictures.schema.json" }
+  ]
+}

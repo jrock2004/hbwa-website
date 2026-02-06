@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "rates.schema.json",
+  "title": "Rates Config",
+  "description": "Water rates, fees, sections, subsections, and notes.",
+  "type": "object",
+  "required": ["title", "effectiveDate", "sections"],
+  "properties": {
+    "title": { "type": "string" },
+    "effectiveDate": { "type": "string" },
+    "sections": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Section" }
+    },
+    "notes": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "default": {}
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "Fee": {
+      "type": "object",
+      "required": ["label"],
+      "properties": {
+        "label": { "type": "string" },
+        "amountUSD": { "type": "number" },
+        "amountText": { "type": "string" },
+        "unit": {
+          "type": "string",
+          "enum": ["per_hour", "per_page", "per_document", "per_EDU_per_quarter"]
+        },
+        "details": { "type": "string" },
+        "noteKey": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "Subsection": {
+      "type": "object",
+      "required": ["key", "title"],
+      "properties": {
+        "key": { "type": "string" },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "fees": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Fee" },
+          "default": []
+        }
+      },
+      "additionalProperties": false
+    },
+    "Section": {
+      "type": "object",
+      "required": ["key", "title"],
+      "properties": {
+        "key": { "type": "string" },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "fees": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Fee" },
+          "default": []
+        },
+        "subsections": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Subsection" }
+        },
+        "policies": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "href"],
+            "properties": {
+              "label": { "type": "string" },
+              "href": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

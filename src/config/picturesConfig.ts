@@ -1,17 +1,17 @@
-export type Picture = {
-  /** Path under /public, e.g. "/slideshow/photo.jpg" */
-  src: string;
-  /** Concise, descriptive alt text for accessibility */
-  alt: string;
-  /** Optional display title */
-  title?: string;
-  /** Optional caption/credit */
-  caption?: string;
-  /** Optional intrinsic size for layout stability */
-  width?: number;
-  height?: number;
-};
+import { z } from "zod";
 
-export type PicturesConfig = {
-  items: Picture[];
-};
+export const PictureSchema = z.object({
+  src: z.string(),
+  alt: z.string(),
+  title: z.string().optional(),
+  caption: z.string().optional(),
+  width: z.number().optional(),
+  height: z.number().optional(),
+});
+
+export const PicturesConfigSchema = z.object({
+  items: z.array(PictureSchema),
+});
+
+export type Picture = z.infer<typeof PictureSchema>;
+export type PicturesConfig = z.infer<typeof PicturesConfigSchema>;

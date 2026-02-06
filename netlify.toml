@@ -1,5 +1,5 @@
 [build]
-command = "pnpm build" # or "npm run build" / "yarn build"
+command = "pnpm validate && pnpm build"
 publish = "dist"
 
 # Set a Node version to match local (optional but avoids surprises)
@@ -8,7 +8,7 @@ NODE_VERSION = "20"
 
 # Production-only overrides (optional)
 [context.production]
-command = "pnpm build"
+command = "pnpm validate && pnpm build"
 
 # SPA fallback (alternative to _redirects if you prefer TOML)
 [[redirects]]

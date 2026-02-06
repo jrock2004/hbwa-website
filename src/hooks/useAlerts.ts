@@ -1,23 +1,15 @@
-import { useEffect, useState } from "react";
 import { AlertsSchema, type Alert } from "@/config/alertsConfig";
+import { useJsonConfig } from "./useJsonConfig";
 
-export function useAlerts() {
-  const [data, setData] = useState<Alert[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetch("/alerts.json", { cache: "no-store" })
-      .then((r) => r.json())
-      .then((json) => {
-        const parsed = AlertsSchema.safeParse(json);
-        if (!parsed.success) {
-          setError("Config error: please check alerts.json (fields or commas).");
-          return;
-        }
-        setData(parsed.data);
-      })
-      .catch(() => setError("Could not load alerts.json"));
-  }, []);
-
-  return { data, error, isLoading: !data && !error };
+export function useAlerts(): {
+  data: Alert[] | null;
+  error: string | null;
+  isLoading: boolean;
+} {
+  const state = useJsonConfig("/alerts.json", AlertsSchema);
+  return {
+    data: state.status === "success" ? state.data : null,
+    error: state.status === "error" ? state.error.message : null,
+    isLoading: state.status === "idle" || state.status === "loading",
+  };
 }

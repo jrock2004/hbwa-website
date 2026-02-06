@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "documents.schema.json",
+  "title": "Documents",
+  "description": "Array of official HBWA documents with category.",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/DocumentItem"
+  },
+  "$defs": {
+    "DocumentItem": {
+      "type": "object",
+      "required": ["id", "title", "url", "date", "category"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "url": { "type": "string" },
+        "date": { "type": "string" },
+        "category": {
+          "type": "string",
+          "enum": ["Forms", "Minutes", "Notices", "Other", "Reports"]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pictures.schema.json",
+  "title": "Pictures Config",
+  "description": "Gallery images with metadata.",
+  "type": "object",
+  "required": ["items"],
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Picture" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "Picture": {
+      "type": "object",
+      "required": ["src", "alt"],
+      "properties": {
+        "src": { "type": "string" },
+        "alt": { "type": "string" },
+        "title": { "type": "string" },
+        "caption": { "type": "string" },
+        "width": { "type": "number" },
+        "height": { "type": "number" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
