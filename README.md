@@ -141,10 +141,16 @@ hbwa-website/
 └── netlify.toml               # Netlify deployment config
 ```
 
-### Deployment
+### CI/CD
 
-The site is deployed on **Netlify**:
+**GitHub Actions** runs automated checks on every PR and push to main:
+- Config validation (`pnpm validate`)
+- TypeScript type checking (`tsc -b`)
+- Linting (`pnpm lint`)
+- Format checking (`pnpm format:check`)
+- Build test (`pnpm build`)
 
+**Netlify** handles deployment:
 1. Push to the `main` branch
 2. Netlify runs: `pnpm validate && pnpm build`
 3. If validation fails, the build is aborted
@@ -164,10 +170,16 @@ To add a new config file:
 ### Contributing
 
 1. Make your changes
-2. Run `pnpm validate` to check config files
-3. Run `pnpm build` to ensure the build works
-4. Test locally with `pnpm preview`
-5. Commit and push
+2. Run quality checks locally:
+   ```bash
+   pnpm validate       # Validate config files
+   pnpm lint          # Check for linting errors
+   pnpm format:check  # Check code formatting
+   pnpm build         # Ensure the build works
+   ```
+3. Test locally with `pnpm preview`
+4. Create a pull request (CI will run all checks automatically)
+5. Once approved and checks pass, merge to main
 
 ---
 
