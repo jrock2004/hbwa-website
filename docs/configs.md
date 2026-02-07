@@ -48,6 +48,7 @@ The website content is managed through simple JSON configuration files. You can 
 Controls the main site details (name, email, address), homepage content (hero, quick links), and SEO metadata (page titles and descriptions for search engines).
 
 **What's in this file:**
+
 - `about` - About section highlights
 - `ccr` - Consumer Confidence Report featured section
 - `contact` - Contact information and address

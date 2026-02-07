@@ -144,6 +144,7 @@ hbwa-website/
 ### CI/CD
 
 **GitHub Actions** runs automated checks on every PR and push to main:
+
 - Config validation (`pnpm validate`)
 - TypeScript type checking (`tsc -b`)
 - Linting (`pnpm lint`)
@@ -151,6 +152,7 @@ hbwa-website/
 - Build test (`pnpm build`)
 
 **Netlify** handles deployment:
+
 1. Push to the `main` branch
 2. Netlify runs: `pnpm validate && pnpm build`
 3. If validation fails, the build is aborted
