@@ -25,8 +25,7 @@ The website content is managed through simple JSON configuration files. You can 
 
 ### Available Configuration Files
 
-- **`site.json`** - Basic site information (name, email, address)
-- **`meta.json`** - Page titles & descriptions for SEO
+- **`site.json`** - Site information, SEO metadata, contact info, hero section, quick links
 - **`alerts.json`** - Homepage announcements and alerts
 - **`rates.json`** - Water rates and fees
 - **`governance.json`** - Board members and their roles
@@ -75,7 +74,7 @@ This project uses a **JSON-as-CMS** approach, allowing non-developers to manage 
 #### Key Components
 
 1. **Config Files** (`public/*.json`)
-   - 8 JSON files store all site content
+   - 7 JSON files store all site content
    - Served as static assets
    - Editable by non-developers
 
@@ -95,7 +94,7 @@ This project uses a **JSON-as-CMS** approach, allowing non-developers to manage 
    - Some use adapters to transform the data
 
 5. **Validation Script** (`scripts/validate-configs.ts`)
-   - Validates all 8 config files against Zod schemas
+   - Validates all 7 config files against Zod schemas
    - Runs before build in CI/CD: `pnpm validate && pnpm build`
    - Prevents invalid configs from being deployed
 

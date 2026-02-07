@@ -9,6 +9,13 @@ export const CTAItem = LinkItem.extend({
   variant: z.enum(["primary", "ghost", "outline"]).default("primary"),
 });
 
+export const RouteMetaSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  ogImage: z.string().optional(),
+  noindex: z.boolean().optional(),
+});
+
 export const SiteConfigSchema = z.object({
   about: z.object({
     left: z.array(z.string()).default([]),
@@ -43,6 +50,19 @@ export const SiteConfigSchema = z.object({
       })
       .optional(),
   }),
+  meta: z.object({
+    defaults: z.object({
+      siteName: z.string(),
+      titleTemplate: z.string(),
+      description: z.string(),
+      locale: z.string().default("en_US"),
+      twitterCard: z.enum(["summary", "summary_large_image"]).default("summary_large_image"),
+      ogImage: z.string().optional(),
+      twitterSite: z.string().nullable().optional(),
+      baseUrl: z.string().url().nullable().optional(),
+    }),
+    routes: z.record(z.string(), RouteMetaSchema),
+  }),
   notices: z
     .array(
       z.object({
@@ -57,3 +77,4 @@ export const SiteConfigSchema = z.object({
 });
 
 export type SiteConfig = z.infer<typeof SiteConfigSchema>;
+export type RouteMeta = z.infer<typeof RouteMetaSchema>;

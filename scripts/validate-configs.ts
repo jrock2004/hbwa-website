@@ -3,7 +3,6 @@ import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { SiteConfigSchema } from "../src/config/siteConfig.ts";
-import { MetaConfigSchema } from "../src/config/metaConfig.ts";
 import { AlertsSchema } from "../src/config/alertsConfig.ts";
 import { RatesConfigSchema } from "../src/config/ratesConfig.ts";
 import { GovernanceConfigSchema } from "../src/config/governanceConfig.ts";
@@ -16,7 +15,6 @@ const publicDir = resolve(__dirname, "../public");
 
 const configs = [
   { file: "site.json", schema: SiteConfigSchema },
-  { file: "meta.json", schema: MetaConfigSchema },
   { file: "alerts.json", schema: AlertsSchema },
   { file: "rates.json", schema: RatesConfigSchema },
   { file: "governance.json", schema: GovernanceConfigSchema },

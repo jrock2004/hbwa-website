@@ -44,6 +44,91 @@
       "alt": "Water tower in Honey Brook"
     }
   },
+  "meta": {
+    "defaults": {
+      "siteName": "Honey Brook Water Authority",
+      "titleTemplate": "%s | Honey Brook Water Authority",
+      "description": "Official website for the Honey Brook Water Authority. Find alerts, water quality reports, rates, forms, governance, and contact information.",
+      "locale": "en_US",
+      "twitterCard": "summary_large_image",
+      "ogImage": "/social/hbwa-og-default.jpg",
+      "twitterSite": null,
+      "baseUrl": null
+    },
+    "routes": {
+      "/": {
+        "title": "Home",
+        "description": "Welcome to the Honey Brook Water Authority. Get the latest alerts, find documents and rates, and learn about our services.",
+        "ogImage": "/social/hbwa-og-home.jpg"
+      },
+      "/alerts": {
+        "title": "Alerts",
+        "description": "Active emergency and non-emergency notices, planned outages, boil advisories, and service updates for HBWA customers.",
+        "ogImage": "/social/hbwa-og-alerts.jpg"
+      },
+      "/documents": {
+        "title": "Documents",
+        "description": "Minutes, reports, forms, notices, and other official HBWA documents in one place.",
+        "ogImage": "/social/hbwa-og-docs.jpg"
+      },
+      "/water-quality": {
+        "title": "Water Quality",
+        "description": "Annual CCR (Consumer Confidence Report), test results, and information about the quality and safety of your drinking water.",
+        "ogImage": "/social/hbwa-og-water-quality.jpg"
+      },
+      "/rates": {
+        "title": "Rates & Charges",
+        "description": "Current water rates, fees, and charges for Honey Brook Water Authority customers.",
+        "ogImage": "/social/hbwa-og-rates.jpg"
+      },
+      "/governance": {
+        "title": "Governance",
+        "description": "Board members, staff, consultants, and meeting information for the Honey Brook Water Authority.",
+        "ogImage": "/social/hbwa-og-governance.jpg"
+      },
+      "/policies": {
+        "title": "Policies",
+        "description": "Right-to-Know, meter policy, and other official HBWA policies and procedures.",
+        "ogImage": "/social/hbwa-og-policies.jpg"
+      },
+      "/conservation": {
+        "title": "Conservation",
+        "description": "Water-saving tips, best practices, and resources to help conserve water in our community.",
+        "ogImage": "/social/hbwa-og-conservation.jpg"
+      },
+      "/links": {
+        "title": "Links",
+        "description": "Helpful links to state agencies and trusted resources related to water service and conservation.",
+        "ogImage": "/social/hbwa-og-links.jpg"
+      },
+      "/gallery": {
+        "title": "Gallery",
+        "description": "Photos from the Honey Brook Water Authority—community, infrastructure, and events.",
+        "ogImage": "/social/hbwa-og-gallery.jpg"
+      },
+      "/contact": {
+        "title": "Contact",
+        "description": "Contact HBWA: phone, office hours, address, and directions.",
+        "ogImage": "/social/hbwa-og-contact.jpg"
+      },
+      "/about": {
+        "title": "About",
+        "description": "About the Honey Brook Water Authority—mission, history, and service area.",
+        "ogImage": "/social/hbwa-og-about.jpg"
+      },
+      "/services": {
+        "title": "Services",
+        "description": "Customer services: start/stop service, billing information, and how to report leaks or issues.",
+        "ogImage": "/social/hbwa-og-services.jpg"
+      },
+      "/*": {
+        "title": "Page Not Found",
+        "description": "We couldn't find the page you requested.",
+        "ogImage": "/social/hbwa-og-404.jpg",
+        "noindex": true
+      }
+    }
+  },
   "notices": [
     { "title": "Planned maintenance on Maple St.", "date": "2025-09-15", "to": "/alerts" },
     { "title": "Hydrant flushing schedule posted", "date": "2025-09-10", "to": "/alerts#flushing" },

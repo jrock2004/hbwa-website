@@ -6,8 +6,7 @@ The website content is managed through simple JSON configuration files. You can 
 
 - [How to Update Content](#how-to-update-content)
 - [Configuration Files](#configuration-files)
-  - [site.json](#sitejson---basic-site-information)
-  - [meta.json](#metajson---page-titles--descriptions)
+  - [site.json](#sitejson---site-information--seo)
   - [alerts.json](#alertsjson---homepage-alerts)
   - [rates.json](#ratesjson---water-rates--fees)
   - [governance.json](#governancejson---board-members)
@@ -44,42 +43,53 @@ The website content is managed through simple JSON configuration files. You can 
 
 ## Configuration Files
 
-### `site.json` - Basic Site Information
+### `site.json` - Site Information & SEO
 
-Controls the main site details like name, email, and address.
+Controls the main site details (name, email, address), homepage content (hero, quick links), and SEO metadata (page titles and descriptions for search engines).
 
-**Example:**
+**What's in this file:**
+- `about` - About section highlights
+- `ccr` - Consumer Confidence Report featured section
+- `contact` - Contact information and address
+- `hero` - Homepage hero section with title, tagline, and call-to-action buttons
+- `meta` - SEO metadata including page titles and descriptions
+  - `meta.defaults` - Default SEO settings for the entire site
+  - `meta.routes` - Specific titles and descriptions for each page
+- `notices` - Recent notices shown on homepage
+- `quickLinks` - Quick navigation links
+- `siteTitle` - Main site title
 
-```json
-{
-  "name": "Honey Brook Water Association",
-  "email": "info@hbwaonline.com",
-  "address": {
-    "street": "123 Main St",
-    "city": "Bordentown",
-    "state": "NJ",
-    "zip": "08505"
-  }
-}
-```
-
----
-
-### `meta.json` - Page Titles & Descriptions
-
-Controls what appears in browser tabs and search engine results for each page.
-
-**Example:**
+**Example (excerpt):**
 
 ```json
 {
-  "home": {
-    "title": "Home - HBWA",
-    "description": "Welcome to HBWA"
+  "siteTitle": "Honey Brook Water Authority",
+  "contact": {
+    "email": "info@hbwaonline.com",
+    "phone": "(610) 273-7830",
+    "address": {
+      "street": "91 Pequea Ave",
+      "city": "Honey Brook",
+      "state": "PA",
+      "zip": "19344"
+    }
   },
-  "about": {
-    "title": "About Us - HBWA",
-    "description": "Learn about our water association"
+  "meta": {
+    "defaults": {
+      "siteName": "Honey Brook Water Authority",
+      "titleTemplate": "%s | Honey Brook Water Authority",
+      "description": "Official website for the Honey Brook Water Authority."
+    },
+    "routes": {
+      "/": {
+        "title": "Home",
+        "description": "Welcome to the Honey Brook Water Authority."
+      },
+      "/alerts": {
+        "title": "Alerts",
+        "description": "Active notices and service updates."
+      }
+    }
   }
 }
 ```

@@ -7,7 +7,6 @@
   "[typescriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
   "json.schemas": [
     { "fileMatch": ["public/site.json"], "url": "./schemas/site.schema.json" },
-    { "fileMatch": ["public/meta.json"], "url": "./schemas/meta.schema.json" },
     { "fileMatch": ["public/alerts.json"], "url": "./schemas/alerts.schema.json" },
     { "fileMatch": ["public/rates.json"], "url": "./schemas/rates.schema.json" },
     { "fileMatch": ["public/governance.json"], "url": "./schemas/governance.schema.json" },
