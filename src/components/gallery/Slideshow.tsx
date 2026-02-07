@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import { useEffect, useId, useRef, useState, useCallback } from "react";
 import clsx from "clsx";
 import type { Picture } from "@/config/picturesConfig";
 import { SlideshowImage } from "./SlideshowImage";
@@ -34,7 +34,8 @@ export default function Slideshow({
   // image load state to fade-in & show skeleton
   const [loadedBySrc, setLoadedBySrc] = useState<Record<string, boolean>>({});
 
-  const regionId = useMemo(() => `slideshow-${Math.random().toString(36).slice(2)}`, []);
+  const id = useId();
+  const regionId = `slideshow-${id}`;
   const liveRef = useRef<HTMLDivElement | null>(null);
   const timerRef = useRef<number | null>(null);
 

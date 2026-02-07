@@ -22,7 +22,13 @@ const isActive = (a: Alert, ref: Date = now()) => {
 
 export default function GlobalAlertBanner() {
   const { data: alerts, error, isLoading } = useAlerts();
-  const [dismissedSig, setDismissedSig] = useState<string | null>(null);
+  const [dismissedSig, setDismissedSig] = useState<string | null>(() => {
+    try {
+      return sessionStorage.getItem("hbwa.alertBanner.dismissed");
+    } catch {
+      return null;
+    }
+  });
 
   const { mode, signature, primary } = useMemo(() => {
     if (!alerts)
@@ -49,15 +55,7 @@ export default function GlobalAlertBanner() {
     return { mode: chosenMode, signature: sig, primary: chosen[0] ?? null };
   }, [alerts]);
 
-  useEffect(() => {
-    try {
-      const saved = sessionStorage.getItem("hbwa.alertBanner.dismissed");
-      setDismissedSig(saved);
-    } catch {
-      /* ignore */
-    }
-  }, []);
-
+  // Sync sessionStorage when signature changes (clear old dismissals)
   useEffect(() => {
     if (signature && dismissedSig && dismissedSig !== signature) {
       try {
@@ -65,7 +63,6 @@ export default function GlobalAlertBanner() {
       } catch {
         /* ignore */
       }
-      setDismissedSig(null);
     }
   }, [signature, dismissedSig]);
 
@@ -81,7 +78,9 @@ export default function GlobalAlertBanner() {
 
   if (isLoading || error) return null;
   if (!mode || !primary) return null;
-  if (dismissedSig === signature) return null;
+  // Show banner if not dismissed, or if dismissed signature is stale
+  const isDismissed = dismissedSig === signature;
+  if (isDismissed) return null;
 
   const isEmergency = mode === "emergency";
 

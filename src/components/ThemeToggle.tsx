@@ -2,17 +2,22 @@ import { useEffect, useState } from "react";
 import { type Theme, applyTheme, loadTheme, saveTheme } from "../lib/theme";
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("system");
+  const [theme, setTheme] = useState<Theme>(() => loadTheme());
 
+  // Apply theme on mount
   useEffect(() => {
-    const t = loadTheme();
-    setTheme(t);
-    applyTheme(t);
+    applyTheme(theme);
+  }, [theme]);
+
+  // Listen for system preference changes
+  useEffect(() => {
+    if (theme !== "system") return;
+
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const handler = () => theme === "system" && applyTheme("system");
+    const handler = () => applyTheme("system");
     mq.addEventListener?.("change", handler);
     return () => mq.removeEventListener?.("change", handler);
-  }, []);
+  }, [theme]);
 
   useEffect(() => {
     applyTheme(theme);

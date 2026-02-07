@@ -22,6 +22,8 @@ export function useIsTruncated<T extends HTMLElement>(deps: unknown[] = []) {
       ro.disconnect();
       window.removeEventListener("resize", measure);
     };
+    // deps is intentionally passed from caller to control re-measurement timing
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
   return { ref, truncated };
