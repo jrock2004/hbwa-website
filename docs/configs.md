@@ -49,9 +49,10 @@ The website content is managed through simple JSON configuration files. You can 
 Controls the main site details like name, email, and address.
 
 **Example:**
+
 ```json
 {
-  "name": "Homestead Bordentown Water Association",
+  "name": "Honey Brook Water Association",
   "email": "info@hbwaonline.com",
   "address": {
     "street": "123 Main St",
@@ -69,6 +70,7 @@ Controls the main site details like name, email, and address.
 Controls what appears in browser tabs and search engine results for each page.
 
 **Example:**
+
 ```json
 {
   "home": {
@@ -89,6 +91,7 @@ Controls what appears in browser tabs and search engine results for each page.
 Displays important announcements at the top of the homepage.
 
 **Example:**
+
 ```json
 {
   "alerts": [
@@ -103,12 +106,14 @@ Displays important announcements at the top of the homepage.
 ```
 
 **Alert Types:**
+
 - `"info"` - Blue background (general information)
 - `"warning"` - Yellow background (important notices)
 - `"error"` - Red background (urgent alerts)
 - `"success"` - Green background (positive updates)
 
 **Dismissible:**
+
 - `true` - Users can close the alert
 - `false` - Alert always shows
 
@@ -119,6 +124,7 @@ Displays important announcements at the top of the homepage.
 Lists all current water rates and fees.
 
 **Example:**
+
 ```json
 {
   "rates": [
@@ -145,6 +151,7 @@ Lists all current water rates and fees.
 Lists current board members and their roles.
 
 **Example:**
+
 ```json
 {
   "boardMembers": [
@@ -165,6 +172,7 @@ Lists current board members and their roles.
 External links displayed on the website.
 
 **Example:**
+
 ```json
 {
   "links": [
@@ -185,6 +193,7 @@ External links displayed on the website.
 Documents available for download (bylaws, meeting minutes, etc.).
 
 **Example:**
+
 ```json
 {
   "documents": [
@@ -209,6 +218,7 @@ Documents available for download (bylaws, meeting minutes, etc.).
 Photos displayed in the gallery section.
 
 **Example:**
+
 ```json
 {
   "pictures": [
@@ -251,6 +261,7 @@ Photos displayed in the gallery section.
 ## Getting Help
 
 If you encounter errors or have questions:
+
 1. Check the error message from `pnpm validate`—it shows exactly what needs to be fixed
 2. Make sure your JSON syntax is correct (commas, quotes, brackets)
 3. Ask a developer for help if needed
