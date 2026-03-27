@@ -8,7 +8,7 @@ export function useAlerts(): {
 } {
   const state = useJsonConfig("/alerts.json", AlertsSchema);
   return {
-    data: state.status === "success" ? state.data : null,
+    data: state.status === "success" ? state.data.items : null,
     error: state.status === "error" ? state.error.message : null,
     isLoading: state.status === "idle" || state.status === "loading",
   };

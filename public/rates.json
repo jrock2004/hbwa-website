@@ -235,7 +235,10 @@
       ]
     }
   ],
-  "notes": {
-    "connection_fee_note": "Connection Fee is an estimate. Applicant responsible for all charges/fees for main connection, excavation, restoration, inspections. Applicant’s contractor must be Authority-approved and insured."
-  }
+  "notes": [
+    {
+      "key": "connection_fee_note",
+      "value": "Connection Fee is an estimate. Applicant responsible for all charges/fees for main connection, excavation, restoration, inspections. Applicant’s contractor must be Authority-approved and insured."
+    }
+  ]
 }

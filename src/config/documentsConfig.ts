@@ -8,6 +8,9 @@ export const DocumentItemSchema = z.object({
   category: z.enum(["Forms", "Minutes", "Notices", "Other", "Reports"]),
 });
 
-export const DocumentsSchema = z.array(DocumentItemSchema);
+export const DocumentsSchema = z.object({
+  items: z.array(DocumentItemSchema),
+});
 
 export type DocumentItem = z.infer<typeof DocumentItemSchema>;
+export type DocumentsConfig = z.infer<typeof DocumentsSchema>;

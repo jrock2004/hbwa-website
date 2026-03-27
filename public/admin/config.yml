@@ -1,0 +1,364 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Where uploaded media files are stored (repo-relative) and the URL prefix used in content
+media_folder: public/images
+public_folder: /images
+
+# Used for preview links in the editor
+site_url: https://hbbawater.com
+
+collections:
+  # ────────────────────────────────────────────────────────────────────────────
+  # Site Settings  →  public/site.json
+  # ────────────────────────────────────────────────────────────────────────────
+  - name: settings
+    label: Settings
+    files:
+      - label: Site Settings
+        name: site
+        file: public/site.json
+        format: json
+        fields:
+          - { label: "Site Title", name: siteTitle, widget: string }
+
+          - label: Hero Section
+            name: hero
+            widget: object
+            fields:
+              - { label: Heading, name: title, widget: string }
+              - { label: Tagline, name: tagline, widget: string }
+              - label: Hero Image
+                name: image
+                widget: object
+                required: false
+                fields:
+                  - { label: Image, name: src, widget: image }
+                  - { label: Alt Text, name: alt, widget: string }
+              - label: Buttons (CTAs)
+                name: ctas
+                widget: list
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: "URL / Path", name: to, widget: string }
+                  - label: Style
+                    name: variant
+                    widget: select
+                    options: [primary, ghost, outline]
+                    default: primary
+
+          - label: About Blurbs
+            name: about
+            widget: object
+            fields:
+              - label: Left Column
+                name: left
+                widget: list
+                field: { label: Text, name: item, widget: string }
+              - label: Right Column
+                name: right
+                widget: list
+                field: { label: Text, name: item, widget: string }
+
+          - label: CCR Banner
+            name: ccr
+            widget: object
+            fields:
+              - { label: Banner Title, name: title, widget: string }
+              - label: Primary Button
+                name: primary
+                widget: object
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Path, name: to, widget: string }
+              - label: Secondary Button
+                name: secondary
+                widget: object
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Path, name: to, widget: string }
+
+          - label: Contact Information
+            name: contact
+            widget: object
+            fields:
+              - { label: Email, name: email, widget: string, required: false }
+              - { label: Phone, name: phone, widget: string }
+              - { label: PA One Call URL, name: paOneCallUrl, widget: string }
+              - label: Address
+                name: address
+                widget: object
+                fields:
+                  - { label: Building Name, name: buildingName, widget: string, required: false }
+                  - { label: Street, name: street, widget: string, required: false }
+                  - { label: City, name: city, widget: string, required: false }
+                  - { label: State, name: state, widget: string, required: false }
+                  - { label: ZIP, name: zip, widget: string, required: false }
+                  - { label: "P.O. Box", name: poBox, widget: string, required: false }
+
+          - label: News Notices
+            name: notices
+            widget: list
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Date, name: date, widget: date, format: "YYYY-MM-DD" }
+              - { label: "Link Path", name: to, widget: string }
+
+          - label: Quick Links
+            name: quickLinks
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Path, name: to, widget: string }
+
+          - label: SEO
+            name: meta
+            widget: object
+            fields:
+              - label: Global Defaults
+                name: defaults
+                widget: object
+                fields:
+                  - { label: Site Name, name: siteName, widget: string }
+                  - { label: Title Template, name: titleTemplate, widget: string, hint: "Use %s as placeholder — e.g. \"%s | Honey Brook Water Authority\"" }
+                  - { label: Default Description, name: description, widget: text }
+                  - { label: Locale, name: locale, widget: string, default: en_US }
+                  - label: Twitter Card Type
+                    name: twitterCard
+                    widget: select
+                    options: [summary, summary_large_image]
+                    default: summary_large_image
+                  - { label: Default OG Image, name: ogImage, widget: image, required: false }
+                  - { label: Twitter Handle, name: twitterSite, widget: string, required: false }
+                  - { label: Base URL, name: baseUrl, widget: string, required: false }
+              - label: Page Meta
+                name: routes
+                widget: list
+                fields:
+                  - { label: "Path (e.g. /alerts)", name: path, widget: string }
+                  - { label: Page Title, name: title, widget: string }
+                  - { label: Description, name: description, widget: text }
+                  - { label: OG Image, name: ogImage, widget: image, required: false }
+                  - { label: No-index, name: noindex, widget: boolean, default: false, required: false }
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # Alerts  →  public/alerts.json
+  # ────────────────────────────────────────────────────────────────────────────
+  - name: alerts
+    label: Alerts
+    files:
+      - label: Alerts
+        name: alerts
+        file: public/alerts.json
+        format: json
+        fields:
+          - label: Alerts
+            name: items
+            widget: list
+            fields:
+              - { label: ID, name: id, widget: string, hint: "Unique slug — e.g. 2025-09-10-water-main" }
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text }
+              - label: Severity
+                name: severity
+                widget: select
+                options: [emergency, notice]
+              - { label: Effective From, name: effectiveFrom, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ" }
+              - { label: Effective To, name: effectiveTo, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", required: false }
+              - { label: Last Updated, name: lastUpdated, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", required: false }
+              - { label: Link, name: link, widget: string, required: false }
+              - label: Tags
+                name: tags
+                widget: list
+                required: false
+                field: { label: Tag, name: tag, widget: string }
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # Documents  →  public/documents.json
+  # ────────────────────────────────────────────────────────────────────────────
+  - name: documents
+    label: Documents
+    files:
+      - label: Documents
+        name: documents
+        file: public/documents.json
+        format: json
+        fields:
+          - label: Documents
+            name: items
+            widget: list
+            fields:
+              - { label: ID, name: id, widget: string, hint: "Unique slug — e.g. ccr-2024" }
+              - { label: Title, name: title, widget: string }
+              - { label: "File URL / Path", name: url, widget: string, hint: "e.g. /docs/reports/2024ccr.pdf" }
+              - { label: Date, name: date, widget: date, format: "YYYY-MM-DD" }
+              - label: Category
+                name: category
+                widget: select
+                options: [Forms, Minutes, Notices, Other, Reports]
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # Governance  →  public/governance.json
+  # ────────────────────────────────────────────────────────────────────────────
+  - name: governance
+    label: Governance
+    files:
+      - label: Governance
+        name: governance
+        file: public/governance.json
+        format: json
+        fields:
+          - label: Board Members
+            name: board
+            widget: list
+            fields:
+              - { label: "Role / Title", name: role, widget: string }
+              - { label: Name, name: name, widget: string }
+          - label: Employees
+            name: employees
+            widget: list
+            fields:
+              - { label: "Role / Title", name: role, widget: string }
+              - { label: Name, name: name, widget: string }
+          - label: Consultants
+            name: consultants
+            widget: list
+            fields:
+              - { label: "Role / Service", name: role, widget: string }
+              - { label: "Name / Firm", name: name, widget: string }
+          - label: Memberships
+            name: memberships
+            widget: list
+            field: { label: Organization, name: membership, widget: string }
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # Helpful Links  →  public/links.json
+  # ────────────────────────────────────────────────────────────────────────────
+  - name: links
+    label: Helpful Links
+    files:
+      - label: Links Page
+        name: links
+        file: public/links.json
+        format: json
+        fields:
+          - { label: Page Title, name: title, widget: string }
+          - label: Link Groups
+            name: groups
+            widget: list
+            fields:
+              - { label: Group Label, name: label, widget: string }
+              - label: Links
+                name: items
+                widget: list
+                fields:
+                  - { label: Name, name: name, widget: string }
+                  - { label: URL, name: url, widget: string }
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # Gallery  →  public/pictures.json
+  # ────────────────────────────────────────────────────────────────────────────
+  - name: gallery
+    label: Gallery
+    media_folder: public/slideshow
+    public_folder: /slideshow
+    files:
+      - label: Slideshow Images
+        name: pictures
+        file: public/pictures.json
+        format: json
+        fields:
+          - label: Images
+            name: items
+            widget: list
+            fields:
+              - { label: Image, name: src, widget: image }
+              - { label: Alt Text, name: alt, widget: string }
+              - { label: Title, name: title, widget: string, required: false }
+              - { label: Caption, name: caption, widget: string, required: false }
+              - { label: "Width (px)", name: width, widget: number, required: false }
+              - { label: "Height (px)", name: height, widget: number, required: false }
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # Rates & Charges  →  public/rates.json
+  # ────────────────────────────────────────────────────────────────────────────
+  - name: rates
+    label: "Rates & Charges"
+    files:
+      - label: Rate Schedule
+        name: rates
+        file: public/rates.json
+        format: json
+        fields:
+          - { label: Schedule Title, name: title, widget: string }
+          - { label: Effective Date, name: effectiveDate, widget: date, format: "YYYY-MM-DD" }
+          - label: Sections
+            name: sections
+            widget: list
+            fields:
+              - { label: "Key (internal ID)", name: key, widget: string }
+              - { label: Section Title, name: title, widget: string }
+              - label: Fees
+                name: fees
+                widget: list
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: "Amount (USD)", name: amountUSD, widget: number, required: false }
+                  - { label: "Amount (text)", name: amountText, widget: string, required: false, hint: "For non-numeric amounts like \"Actual cost\"" }
+                  - label: Unit
+                    name: unit
+                    widget: select
+                    required: false
+                    options: [per_hour, per_page, per_document, per_EDU_per_quarter]
+                  - { label: Details, name: details, widget: text, required: false }
+                  - { label: Note Key, name: noteKey, widget: string, required: false, hint: "Must match a key in the Notes list below" }
+              - label: Subsections
+                name: subsections
+                widget: list
+                required: false
+                fields:
+                  - { label: "Key (internal ID)", name: key, widget: string }
+                  - { label: Subsection Title, name: title, widget: string }
+                  - { label: Subtitle, name: subtitle, widget: string, required: false }
+                  - label: Fees
+                    name: fees
+                    widget: list
+                    required: false
+                    fields:
+                      - { label: Label, name: label, widget: string }
+                      - { label: "Amount (USD)", name: amountUSD, widget: number, required: false }
+                      - { label: "Amount (text)", name: amountText, widget: string, required: false }
+                      - label: Unit
+                        name: unit
+                        widget: select
+                        required: false
+                        options: [per_hour, per_page, per_document, per_EDU_per_quarter]
+                      - { label: Details, name: details, widget: text, required: false }
+                      - { label: Note Key, name: noteKey, widget: string, required: false }
+                  - label: Links
+                    name: links
+                    widget: list
+                    required: false
+                    fields:
+                      - { label: Label, name: label, widget: string }
+                      - { label: URL, name: href, widget: string }
+              - label: Policies
+                name: policies
+                widget: list
+                required: false
+                field: { label: Policy text, name: policy, widget: text }
+              - label: Section Links
+                name: links
+                widget: list
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: URL, name: href, widget: string }
+          - label: Notes / Footnotes
+            name: notes
+            widget: list
+            fields:
+              - { label: Key, name: key, widget: string, hint: "Must match noteKey values used in fees above" }
+              - { label: Note Text, name: value, widget: text }

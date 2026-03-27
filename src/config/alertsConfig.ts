@@ -12,5 +12,9 @@ export const AlertSchema = z.object({
   title: z.string(),
 });
 
-export const AlertsSchema = z.array(AlertSchema);
+export const AlertsSchema = z.object({
+  items: z.array(AlertSchema),
+});
+
 export type Alert = z.infer<typeof AlertSchema>;
+export type AlertsConfig = z.infer<typeof AlertsSchema>;
