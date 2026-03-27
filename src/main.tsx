@@ -1,25 +1,25 @@
-import React from "react";
+import React, { lazy } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Services from "./pages/Services";
-import Contact from "./pages/Contact";
-import DocumentsPage from "./pages/Documents";
-import AlertsPage from "./pages/Alerts";
-import Rates from "./pages/Rates";
-import Governance from "./pages/Governance";
-import Policies from "./pages/Policies";
-import Conservation from "./pages/Conservation";
-import Links from "./pages/Links";
-import Gallery from "./pages/Gallery";
-import WaterQuality from "./pages/WaterQuality";
-
-import NotFound from "./pages/NotFound";
 import { HelmetProvider } from "react-helmet-async";
 import ErrorPage from "./pages/ErrorPage";
 import Broken from "./pages/Broken";
+import NotFound from "./pages/NotFound";
+
+const Home = lazy(() => import("./pages/Home"));
+const About = lazy(() => import("./pages/About"));
+const Services = lazy(() => import("./pages/Services"));
+const Contact = lazy(() => import("./pages/Contact"));
+const DocumentsPage = lazy(() => import("./pages/Documents"));
+const AlertsPage = lazy(() => import("./pages/Alerts"));
+const Rates = lazy(() => import("./pages/Rates"));
+const Governance = lazy(() => import("./pages/Governance"));
+const Policies = lazy(() => import("./pages/Policies"));
+const Conservation = lazy(() => import("./pages/Conservation"));
+const Links = lazy(() => import("./pages/Links"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const WaterQuality = lazy(() => import("./pages/WaterQuality"));
 
 const router = createBrowserRouter([
   {
