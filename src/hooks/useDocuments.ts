@@ -9,7 +9,7 @@ export function useDocuments(): {
 } {
   const state = useJsonConfig("/documents.json", DocumentsSchema);
   return {
-    documents: state.status === "success" ? state.data : [],
+    documents: state.status === "success" ? state.data.items : [],
     loading: state.status === "idle" || state.status === "loading",
     error: state.status === "error" ? state.error : null,
   };

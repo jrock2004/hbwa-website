@@ -153,7 +153,7 @@ export default function Rates() {
           {[...noteOrder.entries()].map(([key, num]) => (
             <p key={key} id={`note-${num}`}>
               <span className="rates-accent mr-1 font-semibold">*</span>
-              {data!.notes[key]}
+              {data!.notes.find((n) => n.key === key)?.value}
             </p>
           ))}
           <div>

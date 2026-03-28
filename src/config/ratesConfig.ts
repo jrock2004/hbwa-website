@@ -32,7 +32,7 @@ export const RatesConfigSchema = z.object({
   title: z.string(),
   effectiveDate: z.string(), // ISO date
   sections: z.array(SectionSchema),
-  notes: z.record(z.string(), z.string()).default({}),
+  notes: z.array(z.object({ key: z.string(), value: z.string() })).default([]),
 });
 
 export type RatesConfig = z.infer<typeof RatesConfigSchema>;

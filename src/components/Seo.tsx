@@ -17,19 +17,20 @@ const FALLBACK = {
 function pickRouteMeta(pathname: string, config: MetaConfig | null): RouteMeta | undefined {
   if (!config) return undefined;
 
-  if (config.routes[pathname]) return config.routes[pathname];
+  const exact = config.routes.find((r) => r.path === pathname);
+  if (exact) return exact;
 
   const normalized = pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
-  const keys = Object.keys(config.routes)
-    .filter((k) => k !== "/*")
-    .sort((a, b) => b.length - a.length);
+  const candidates = config.routes
+    .filter((r) => r.path !== "/*")
+    .sort((a, b) => b.path.length - a.path.length);
 
-  for (const key of keys) {
-    if (key === "/") continue;
-    if (normalized === key) return config.routes[key];
-    if (normalized.startsWith(key + "/")) return config.routes[key];
+  for (const r of candidates) {
+    if (r.path === "/") continue;
+    if (normalized === r.path) return r;
+    if (normalized.startsWith(r.path + "/")) return r;
   }
-  return config.routes["/*"];
+  return config.routes.find((r) => r.path === "/*");
 }
 
 function setTitle(text: string) {

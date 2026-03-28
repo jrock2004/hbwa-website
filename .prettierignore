@@ -12,3 +12,7 @@ coverage
 # assets
 public/og*.jpg
 *.min.js
+
+# CMS-managed data files (Decap CMS writes its own formatting on publish)
+public/*.json
+public/admin/preview.js
