@@ -2,6 +2,10 @@ backend:
   name: git-gateway
   branch: main
 
+# Enables the local proxy server for development (http://localhost:8081)
+# Falls back to git-gateway automatically when the proxy is not running
+# local_backend: true
+
 # Where uploaded media files are stored (repo-relative) and the URL prefix used in content
 media_folder: public/images
 public_folder: /images
@@ -121,7 +125,12 @@ collections:
                 widget: object
                 fields:
                   - { label: Site Name, name: siteName, widget: string }
-                  - { label: Title Template, name: titleTemplate, widget: string, hint: "Use %s as placeholder — e.g. \"%s | Honey Brook Water Authority\"" }
+                  - {
+                      label: Title Template,
+                      name: titleTemplate,
+                      widget: string,
+                      hint: 'Use %s as placeholder — e.g. "%s | Honey Brook Water Authority"',
+                    }
                   - { label: Default Description, name: description, widget: text }
                   - { label: Locale, name: locale, widget: string, default: en_US }
                   - label: Twitter Card Type
@@ -140,7 +149,13 @@ collections:
                   - { label: Page Title, name: title, widget: string }
                   - { label: Description, name: description, widget: text }
                   - { label: OG Image, name: ogImage, widget: image, required: false }
-                  - { label: No-index, name: noindex, widget: boolean, default: false, required: false }
+                  - {
+                      label: No-index,
+                      name: noindex,
+                      widget: boolean,
+                      default: false,
+                      required: false,
+                    }
 
   # ────────────────────────────────────────────────────────────────────────────
   # Alerts  →  public/alerts.json
@@ -157,16 +172,38 @@ collections:
             name: items
             widget: list
             fields:
-              - { label: ID, name: id, widget: string, hint: "Unique slug — e.g. 2025-09-10-water-main" }
+              - {
+                  label: ID,
+                  name: id,
+                  widget: string,
+                  hint: "Unique slug — e.g. 2025-09-10-water-main",
+                }
               - { label: Title, name: title, widget: string }
               - { label: Description, name: description, widget: text }
               - label: Severity
                 name: severity
                 widget: select
                 options: [emergency, notice]
-              - { label: Effective From, name: effectiveFrom, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ" }
-              - { label: Effective To, name: effectiveTo, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", required: false }
-              - { label: Last Updated, name: lastUpdated, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", required: false }
+              - {
+                  label: Effective From,
+                  name: effectiveFrom,
+                  widget: datetime,
+                  format: "YYYY-MM-DDTHH:mm:ssZ",
+                }
+              - {
+                  label: Effective To,
+                  name: effectiveTo,
+                  widget: datetime,
+                  format: "YYYY-MM-DDTHH:mm:ssZ",
+                  required: false,
+                }
+              - {
+                  label: Last Updated,
+                  name: lastUpdated,
+                  widget: datetime,
+                  format: "YYYY-MM-DDTHH:mm:ssZ",
+                  required: false,
+                }
               - { label: Link, name: link, widget: string, required: false }
               - label: Tags
                 name: tags
@@ -191,7 +228,12 @@ collections:
             fields:
               - { label: ID, name: id, widget: string, hint: "Unique slug — e.g. ccr-2024" }
               - { label: Title, name: title, widget: string }
-              - { label: "File URL / Path", name: url, widget: string, hint: "e.g. /docs/reports/2024ccr.pdf" }
+              - {
+                  label: "File URL / Path",
+                  name: url,
+                  widget: string,
+                  hint: "e.g. /docs/reports/2024ccr.pdf",
+                }
               - { label: Date, name: date, widget: date, format: "YYYY-MM-DD" }
               - label: Category
                 name: category
@@ -306,14 +348,26 @@ collections:
                 fields:
                   - { label: Label, name: label, widget: string }
                   - { label: "Amount (USD)", name: amountUSD, widget: number, required: false }
-                  - { label: "Amount (text)", name: amountText, widget: string, required: false, hint: "For non-numeric amounts like \"Actual cost\"" }
+                  - {
+                      label: "Amount (text)",
+                      name: amountText,
+                      widget: string,
+                      required: false,
+                      hint: 'For non-numeric amounts like "Actual cost"',
+                    }
                   - label: Unit
                     name: unit
                     widget: select
                     required: false
                     options: [per_hour, per_page, per_document, per_EDU_per_quarter]
                   - { label: Details, name: details, widget: text, required: false }
-                  - { label: Note Key, name: noteKey, widget: string, required: false, hint: "Must match a key in the Notes list below" }
+                  - {
+                      label: Note Key,
+                      name: noteKey,
+                      widget: string,
+                      required: false,
+                      hint: "Must match a key in the Notes list below",
+                    }
               - label: Subsections
                 name: subsections
                 widget: list
@@ -329,7 +383,12 @@ collections:
                     fields:
                       - { label: Label, name: label, widget: string }
                       - { label: "Amount (USD)", name: amountUSD, widget: number, required: false }
-                      - { label: "Amount (text)", name: amountText, widget: string, required: false }
+                      - {
+                          label: "Amount (text)",
+                          name: amountText,
+                          widget: string,
+                          required: false,
+                        }
                       - label: Unit
                         name: unit
                         widget: select
@@ -360,5 +419,10 @@ collections:
             name: notes
             widget: list
             fields:
-              - { label: Key, name: key, widget: string, hint: "Must match noteKey values used in fees above" }
+              - {
+                  label: Key,
+                  name: key,
+                  widget: string,
+                  hint: "Must match noteKey values used in fees above",
+                }
               - { label: Note Text, name: value, widget: text }
