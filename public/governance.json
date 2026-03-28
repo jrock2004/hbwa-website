@@ -1,4 +1,8 @@
 {
+  "meetingSchedule": {
+    "schedule": "First Tuesday of each month at 7:00 PM",
+    "location": "Borough Hall Annex, 91 Pequea Ave, Honey Brook, PA 19344"
+  },
   "board": [
     { "role": "Chairman", "name": "Theodore Ford" },
     { "role": "Vice Chairman", "name": "William Androwick" },
