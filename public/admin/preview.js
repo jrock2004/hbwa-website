@@ -21,7 +21,7 @@
           lineHeight: "1.5",
         },
       },
-      children
+      children,
     );
   }
 
@@ -49,18 +49,14 @@
               fontWeight: "600",
             },
           },
-          title
+          title,
         ),
-      children
+      children,
     );
   }
 
   function SectionHeading(text) {
-    return h(
-      "h2",
-      { style: { fontSize: "1.25rem", fontWeight: "700", margin: "0 0 14px" } },
-      text
-    );
+    return h("h2", { style: { fontSize: "1.25rem", fontWeight: "700", margin: "0 0 14px" } }, text);
   }
 
   function Muted(text) {
@@ -106,12 +102,12 @@
           h(
             "h1",
             { style: { fontSize: "1.25rem", fontWeight: "600", margin: "0 0 8px" } },
-            hero.title || "Hero Title"
+            hero.title || "Hero Title",
           ),
           h(
             "p",
             { style: { color: "#4b5a6a", fontSize: "0.875rem", margin: "0 0 16px" } },
-            hero.tagline || ""
+            hero.tagline || "",
           ),
           h(
             "div",
@@ -135,10 +131,10 @@
                     cursor: "default",
                   },
                 },
-                cta.label
+                cta.label,
               );
-            })
-          )
+            }),
+          ),
         ),
         imgSrc
           ? h("img", {
@@ -151,19 +147,23 @@
                 borderRadius: "8px",
               },
             })
-          : h("div", {
-              style: {
-                width: "100%",
-                aspectRatio: "16/9",
-                background: "#cdd5e0",
-                borderRadius: "8px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#64748b",
-                fontSize: "0.875rem",
+          : h(
+              "div",
+              {
+                style: {
+                  width: "100%",
+                  aspectRatio: "16/9",
+                  background: "#cdd5e0",
+                  borderRadius: "8px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#64748b",
+                  fontSize: "0.875rem",
+                },
               },
-            }, "No image selected")
+              "No image selected",
+            ),
       ),
 
       // About blurbs
@@ -188,16 +188,16 @@
               { style: { margin: 0, paddingLeft: "18px" } },
               (about.left || []).map(function (item, i) {
                 return h("li", { key: i, style: { marginBottom: "4px" } }, item.item || item);
-              })
+              }),
             ),
             h(
               "ul",
               { style: { margin: 0, paddingLeft: "18px" } },
               (about.right || []).map(function (item, i) {
                 return h("li", { key: i, style: { marginBottom: "4px" } }, item.item || item);
-              })
-            )
-          )
+              }),
+            ),
+          ),
         ),
 
       // CCR Banner
@@ -221,7 +221,7 @@
           h(
             "span",
             { style: { fontWeight: "600", fontSize: "1rem" } },
-            data.ccr.title || "CCR Banner"
+            data.ccr.title || "CCR Banner",
           ),
           h(
             "div",
@@ -239,7 +239,7 @@
                     fontWeight: "500",
                   },
                 },
-                data.ccr.primary.label
+                data.ccr.primary.label,
               ),
             data.ccr.secondary &&
               h(
@@ -254,9 +254,9 @@
                     fontWeight: "500",
                   },
                 },
-                data.ccr.secondary.label
-              )
-          )
+                data.ccr.secondary.label,
+              ),
+          ),
         ),
 
       // Contact + Quick Links row
@@ -291,9 +291,9 @@
                     addr.poBox ? "P.O. Box " + addr.poBox : null,
                   ]
                     .filter(Boolean)
-                    .join(", ")
-              )
-          )
+                    .join(", "),
+              ),
+          ),
         ),
         Card(
           "Quick Links",
@@ -304,11 +304,11 @@
               return h(
                 "li",
                 { key: i, style: { padding: "4px 0", fontSize: "0.875rem" } },
-                h("a", { href: link.to, style: { color: BRAND } }, link.label)
+                h("a", { href: link.to, style: { color: BRAND } }, link.label),
               );
-            })
-          )
-        )
+            }),
+          ),
+        ),
       ),
 
       // Notices
@@ -337,10 +337,10 @@
                   },
                 },
                 h("strong", null, n.title || "Untitled"),
-                Muted(n.date || "")
+                Muted(n.date || ""),
               );
-            })
-          )
+            }),
+          ),
         ),
     ]);
   }
@@ -357,7 +357,7 @@
       h(
         "h1",
         { style: { fontSize: "1.875rem", fontWeight: "700", marginBottom: "20px" } },
-        "Alerts"
+        "Alerts",
       ),
       items.length === 0
         ? h("p", { style: { color: "#64748b" } }, "No alerts defined.")
@@ -405,16 +405,21 @@
                   h(
                     "h3",
                     { style: { margin: "0 0 2px", fontSize: "1rem", fontWeight: "600" } },
-                    a.title || "Untitled"
+                    a.title || "Untitled",
                   ),
-                  dateStr && h("p", { style: { margin: 0, fontSize: "0.75rem", color: "#64748b" } }, dateStr)
-                )
+                  dateStr &&
+                    h(
+                      "p",
+                      { style: { margin: 0, fontSize: "0.75rem", color: "#64748b" } },
+                      dateStr,
+                    ),
+                ),
               ),
               a.description &&
                 h(
                   "p",
                   { style: { margin: "10px 0 0", fontSize: "0.875rem", lineHeight: "1.6" } },
-                  a.description
+                  a.description,
                 ),
               a.link &&
                 h(
@@ -430,7 +435,7 @@
                       textDecoration: "underline",
                     },
                   },
-                  "View full notice"
+                  "View full notice",
                 ),
               a.tags &&
                 a.tags.length > 0 &&
@@ -450,10 +455,10 @@
                           color: "#64748b",
                         },
                       },
-                      t
+                      t,
                     );
-                  })
-                )
+                  }),
+                ),
             );
           }),
     ]);
@@ -473,7 +478,7 @@
       h(
         "h1",
         { style: { fontSize: "1.875rem", fontWeight: "700", marginBottom: "20px" } },
-        "Documents"
+        "Documents",
       ),
       items.length === 0
         ? h("p", { style: { color: "#64748b" } }, "No documents defined.")
@@ -516,13 +521,13 @@
                         fontSize: "0.9375rem",
                       },
                     },
-                    d.title || "Untitled"
+                    d.title || "Untitled",
                   ),
                   h(
                     "div",
                     { style: { fontSize: "0.75rem", color: "#64748b", marginTop: "3px" } },
-                    [d.category, dateStr].filter(Boolean).join(" • ")
-                  )
+                    [d.category, dateStr].filter(Boolean).join(" • "),
+                  ),
                 ),
                 h(
                   "span",
@@ -535,10 +540,10 @@
                       flexShrink: 0,
                     },
                   },
-                  "View PDF"
-                )
+                  "View PDF",
+                ),
               );
-            })
+            }),
           ),
     ]);
   }
@@ -565,8 +570,7 @@
                     key: i,
                     style: {
                       padding: "7px 0",
-                      borderBottom:
-                        i < items.length - 1 ? "1px solid #f1f5f9" : "none",
+                      borderBottom: i < items.length - 1 ? "1px solid #f1f5f9" : "none",
                       fontSize: "0.875rem",
                     },
                   },
@@ -578,13 +582,13 @@
                         h(
                           "span",
                           { style: { display: "block", fontSize: "0.75rem", color: "#64748b" } },
-                          item.role || ""
+                          item.role || "",
                         ),
-                        h("span", { style: { fontWeight: "500" } }, item.name || "")
-                      )
+                        h("span", { style: { fontWeight: "500" } }, item.name || ""),
+                      ),
                 );
-              })
-            )
+              }),
+            ),
       );
     }
 
@@ -595,13 +599,13 @@
         h(
           "h1",
           { style: { fontSize: "1.875rem", fontWeight: "700", margin: "0 0 6px" } },
-          "Governance"
+          "Governance",
         ),
         h(
           "p",
           { style: { color: "#64748b", margin: 0 } },
-          "Board Members, Employees, Consultants, and Professional Memberships"
-        )
+          "Board Members, Employees, Consultants, and Professional Memberships",
+        ),
       ),
       h(
         "div",
@@ -609,7 +613,7 @@
         DirectoryCard("Board Members", data.board, false),
         DirectoryCard("Employees", data.employees, false),
         DirectoryCard("Professional Memberships", data.memberships, true),
-        DirectoryCard("Consultants", data.consultants, false)
+        DirectoryCard("Consultants", data.consultants, false),
       ),
     ]);
   }
@@ -629,9 +633,13 @@
         h(
           "h1",
           { style: { fontSize: "1.5rem", fontWeight: "700", margin: "0 0 4px" } },
-          data.title || "Helpful Links"
+          data.title || "Helpful Links",
         ),
-        h("p", { style: { color: "#64748b", fontSize: "0.875rem", margin: 0 } }, "All links open in a new tab.")
+        h(
+          "p",
+          { style: { color: "#64748b", fontSize: "0.875rem", margin: 0 } },
+          "All links open in a new tab.",
+        ),
       ),
       h(
         "div",
@@ -653,13 +661,13 @@
                       target: "_blank",
                       style: { color: BRAND, textDecoration: "none" },
                     },
-                    item.name || ""
-                  )
+                    item.name || "",
+                  ),
                 );
-              })
-            )
+              }),
+            ),
           );
-        })
+        }),
       ),
     ]);
   }
@@ -676,7 +684,7 @@
       h(
         "h1",
         { style: { fontSize: "1.5rem", fontWeight: "600", marginBottom: "16px" } },
-        "Gallery"
+        "Gallery",
       ),
       items.length === 0
         ? h("p", { style: { color: "#64748b" } }, "No images defined.")
@@ -723,7 +731,7 @@
                           fontSize: "0.75rem",
                         },
                       },
-                      "No image"
+                      "No image",
                     ),
                 (item.title || item.caption) &&
                   h(
@@ -742,10 +750,10 @@
                     },
                     item.title &&
                       h("div", { style: { fontWeight: "600", marginBottom: "1px" } }, item.title),
-                    item.caption && h("div", null, item.caption)
-                  )
+                    item.caption && h("div", null, item.caption),
+                  ),
               );
-            })
+            }),
           ),
     ]);
   }
@@ -760,7 +768,8 @@
     var notes = data.notes || [];
 
     function fmtAmount(fee) {
-      if (fee.amountUSD != null && fee.amountUSD !== "") return "$" + Number(fee.amountUSD).toFixed(2);
+      if (fee.amountUSD != null && fee.amountUSD !== "")
+        return "$" + Number(fee.amountUSD).toFixed(2);
       if (fee.amountText) return fee.amountText;
       return "—";
     }
@@ -777,11 +786,7 @@
             return h(
               "tr",
               { key: j, style: { borderBottom: "1px solid #f1f5f9" } },
-              h(
-                "td",
-                { style: { padding: "6px 8px", fontSize: "0.875rem" } },
-                fee.label || ""
-              ),
+              h("td", { style: { padding: "6px 8px", fontSize: "0.875rem" } }, fee.label || ""),
               h(
                 "td",
                 {
@@ -794,16 +799,16 @@
                     color: BRAND,
                   },
                 },
-                fmtAmount(fee)
+                fmtAmount(fee),
               ),
               h(
                 "td",
                 { style: { padding: "6px 8px", fontSize: "0.75rem", color: "#64748b" } },
-                fee.details || ""
-              )
+                fee.details || "",
+              ),
             );
-          })
-        )
+          }),
+        ),
       );
     }
 
@@ -812,7 +817,7 @@
       if (data.effectiveDate)
         effectiveDateStr = new Date(data.effectiveDate + "T00:00:00").toLocaleDateString(
           undefined,
-          { year: "numeric", month: "long", day: "numeric" }
+          { year: "numeric", month: "long", day: "numeric" },
         );
     } catch (e) {}
 
@@ -823,14 +828,14 @@
         h(
           "h1",
           { style: { fontSize: "1.875rem", fontWeight: "700", margin: "0 0 4px" } },
-          data.title || "Rate Schedule"
+          data.title || "Rate Schedule",
         ),
         effectiveDateStr &&
           h(
             "p",
             { style: { color: "#64748b", fontSize: "0.875rem", margin: 0 } },
-            "Effective: " + effectiveDateStr
-          )
+            "Effective: " + effectiveDateStr,
+          ),
       ),
       sections.map(function (sec, i) {
         return h(
@@ -857,7 +862,7 @@
                 borderBottom: "1px solid #dce3ed",
               },
             },
-            sec.title || ""
+            sec.title || "",
           ),
           FeeTable(sec.fees),
           (sec.subsections || []).map(function (sub, j) {
@@ -866,26 +871,40 @@
               { key: j, style: { marginTop: "14px" } },
               h(
                 "h3",
-                { style: { fontSize: "0.875rem", fontWeight: "600", margin: "0 0 6px", color: "#374151" } },
+                {
+                  style: {
+                    fontSize: "0.875rem",
+                    fontWeight: "600",
+                    margin: "0 0 6px",
+                    color: "#374151",
+                  },
+                },
                 sub.title || "",
                 sub.subtitle &&
                   h(
                     "span",
                     { style: { fontWeight: "400", color: "#64748b" } },
-                    " — " + sub.subtitle
-                  )
+                    " — " + sub.subtitle,
+                  ),
               ),
-              FeeTable(sub.fees)
+              FeeTable(sub.fees),
             );
           }),
           (sec.policies || []).length > 0 &&
             h(
               "ul",
-              { style: { marginTop: "12px", paddingLeft: "18px", fontSize: "0.875rem", color: "#374151" } },
+              {
+                style: {
+                  marginTop: "12px",
+                  paddingLeft: "18px",
+                  fontSize: "0.875rem",
+                  color: "#374151",
+                },
+              },
               (sec.policies || []).map(function (policy, j) {
                 return h("li", { key: j, style: { marginBottom: "4px" } }, policy.policy || policy);
-              })
-            )
+              }),
+            ),
         );
       }),
       notes.length > 0 &&
@@ -901,16 +920,16 @@
           h(
             "h3",
             { style: { fontSize: "0.875rem", fontWeight: "600", margin: "0 0 8px" } },
-            "Notes"
+            "Notes",
           ),
           notes.map(function (note, i) {
             return h(
               "p",
               { key: i, style: { fontSize: "0.8125rem", color: "#64748b", margin: "0 0 4px" } },
               h("strong", null, "[" + (note.key || "") + "] "),
-              note.value || ""
+              note.value || "",
             );
-          })
+          }),
         ),
     ]);
   }

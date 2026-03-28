@@ -26,9 +26,7 @@
       "zip": "19344",
       "poBox": "P.O. Box 669"
     },
-    "officeHours": [
-      { "days": "Monday – Friday", "hours": "8:00 AM – 4:00 PM" }
-    ]
+    "officeHours": [{ "days": "Monday – Friday", "hours": "8:00 AM – 4:00 PM" }]
   },
   "hero": {
     "title": "Honey Brook Water Authority",

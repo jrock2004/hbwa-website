@@ -62,7 +62,8 @@ export default function DocumentsPage() {
                     {d.title}
                   </a>
                   <div className="text-muted-foreground text-xs">
-                    {d.category} • <time>{new Date(`${d.date}T00:00:00`).toLocaleDateString()}</time>
+                    {d.category} •{" "}
+                    <time>{new Date(`${d.date}T00:00:00`).toLocaleDateString()}</time>
                   </div>
                 </div>
                 <a

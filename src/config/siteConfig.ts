@@ -39,9 +39,7 @@ export const SiteConfigSchema = z.object({
       zip: z.string().optional(),
       poBox: z.string().optional(),
     }),
-    officeHours: z
-      .array(z.object({ days: z.string(), hours: z.string() }))
-      .optional(),
+    officeHours: z.array(z.object({ days: z.string(), hours: z.string() })).optional(),
   }),
   hero: z.object({
     title: z.string(),

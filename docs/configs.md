@@ -14,15 +14,15 @@ The website content is managed through the Decap CMS admin panel — no coding o
 
 ## What You Can Edit
 
-| Section | What it controls |
-|---|---|
-| **Site Settings** | Site title, hero section, about blurbs, contact info, CCR banner, news notices, quick links, and SEO metadata |
-| **Alerts** | Homepage announcements and service notices |
-| **Documents** | Downloadable files (meeting minutes, reports, forms) |
-| **Governance** | Board members, employees, consultants, and memberships |
-| **Helpful Links** | External links grouped by category |
-| **Gallery** | Slideshow images on the homepage |
-| **Rates & Charges** | Water rates, fees, and footnotes |
+| Section             | What it controls                                                                                              |
+| ------------------- | ------------------------------------------------------------------------------------------------------------- |
+| **Site Settings**   | Site title, hero section, about blurbs, contact info, CCR banner, news notices, quick links, and SEO metadata |
+| **Alerts**          | Homepage announcements and service notices                                                                    |
+| **Documents**       | Downloadable files (meeting minutes, reports, forms)                                                          |
+| **Governance**      | Board members, employees, consultants, and memberships                                                        |
+| **Helpful Links**   | External links grouped by category                                                                            |
+| **Gallery**         | Slideshow images on the homepage                                                                              |
+| **Rates & Charges** | Water rates, fees, and footnotes                                                                              |
 
 ---
 
