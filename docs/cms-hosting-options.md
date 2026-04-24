@@ -43,11 +43,11 @@ backend:
 
 ### Pros / Cons
 
-| Pros | Cons |
-|---|---|
+| Pros                                           | Cons                                             |
+| ---------------------------------------------- | ------------------------------------------------ |
 | Everything on client's existing infrastructure | Requires writing/maintaining PHP files on cPanel |
-| No Netlify account needed | More initial setup than Option 2 |
-| No ongoing cost | |
+| No Netlify account needed                      | More initial setup than Option 2                 |
+| No ongoing cost                                |                                                  |
 
 ---
 
@@ -69,6 +69,7 @@ Editor saves in Decap (on Netlify free tier)
 ### Admin URL
 
 You can't CNAME a path (`yourdomain.com/admin`) — DNS doesn't work at the path level. Options:
+
 - Editors use `yoursite.netlify.app/admin` directly
 - Set up `cms.yourdomain.com` as a CNAME to `yoursite.netlify.app` (cleaner)
 
@@ -89,11 +90,11 @@ This file lives in `public/` and gets copied into `dist/` on build automatically
 
 In GitHub repo → Settings → Secrets and variables → Actions:
 
-| Secret | Where to find it |
-|---|---|
-| `FTP_HOST` | cPanel → FTP Accounts, usually `ftp.yourdomain.com` |
-| `FTP_USERNAME` | cPanel username or a dedicated FTP account |
-| `FTP_PASSWORD` | Password for that FTP account |
+| Secret         | Where to find it                                    |
+| -------------- | --------------------------------------------------- |
+| `FTP_HOST`     | cPanel → FTP Accounts, usually `ftp.yourdomain.com` |
+| `FTP_USERNAME` | cPanel username or a dedicated FTP account          |
+| `FTP_PASSWORD` | Password for that FTP account                       |
 
 ---
 
@@ -157,19 +158,19 @@ jobs:
 **If GoDaddy only has FTP (fallback):**
 
 ```yaml
-      - name: Deploy via FTPS
-        env:
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        run: |
-          sudo apt-get install -y lftp
-          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" ftps://"$FTP_HOST" <<EOF
-            set ftp:ssl-force true
-            set ssl:verify-certificate no
-            set net:max-retries 3
-            mirror --reverse --delete --verbose ./dist/ /public_html/
-          EOF
+- name: Deploy via FTPS
+  env:
+    FTP_HOST: ${{ secrets.FTP_HOST }}
+    FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+    FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+  run: |
+    sudo apt-get install -y lftp
+    lftp -u "$FTP_USERNAME","$FTP_PASSWORD" ftps://"$FTP_HOST" <<EOF
+      set ftp:ssl-force true
+      set ssl:verify-certificate no
+      set net:max-retries 3
+      mirror --reverse --delete --verbose ./dist/ /public_html/
+    EOF
 ```
 
 ---
@@ -179,19 +180,19 @@ jobs:
 More convenient but relies on a third-party action. If used, **always pin to a full commit SHA** — tags are mutable and can be overwritten in a supply chain attack.
 
 ```yaml
-      - name: Deploy to GoDaddy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@6d7d3c3e6a78b1a07c98b5be6e93f3fd8e06754d  # v4.3.5
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
-          server-dir: /public_html/
-          protocol: ftps
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
+- name: Deploy to GoDaddy via FTP
+  uses: SamKirkland/FTP-Deploy-Action@6d7d3c3e6a78b1a07c98b5be6e93f3fd8e06754d # v4.3.5
+  with:
+    server: ${{ secrets.FTP_HOST }}
+    username: ${{ secrets.FTP_USERNAME }}
+    password: ${{ secrets.FTP_PASSWORD }}
+    local-dir: ./dist/
+    server-dir: /public_html/
+    protocol: ftps
+    exclude: |
+      **/.git*
+      **/.git*/**
+      **/node_modules/**
 ```
 
 > **Note:** Verify the SHA above against the actual repo before using. The SHA shown is illustrative — grab the real one from github.com/SamKirkland/FTP-Deploy-Action/releases.
@@ -200,9 +201,9 @@ More convenient but relies on a third-party action. If used, **always pin to a f
 
 ## Decision Factors
 
-| Question | Points to |
-|---|---|
-| Does client actually use cPanel features (email, PHP apps)? | Option 2 if yes, otherwise consider Netlify fully |
-| Want zero new services/accounts? | Option 1 (PHP proxy on existing cPanel) |
-| Want simplest auth setup? | Option 2 (Netlify Identity unchanged) |
-| How often do editors publish? | Frequent = Option 1 (no FTP delay); Infrequent = either |
+| Question                                                    | Points to                                               |
+| ----------------------------------------------------------- | ------------------------------------------------------- |
+| Does client actually use cPanel features (email, PHP apps)? | Option 2 if yes, otherwise consider Netlify fully       |
+| Want zero new services/accounts?                            | Option 1 (PHP proxy on existing cPanel)                 |
+| Want simplest auth setup?                                   | Option 2 (Netlify Identity unchanged)                   |
+| How often do editors publish?                               | Frequent = Option 1 (no FTP delay); Infrequent = either |
