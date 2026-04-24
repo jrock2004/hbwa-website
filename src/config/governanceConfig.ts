@@ -1,6 +1,12 @@
 import { z } from "zod";
 
 export const GovernanceSchema = z.object({
+  meetingSchedule: z
+    .object({
+      schedule: z.string().optional(),
+      location: z.string().optional(),
+    })
+    .optional(),
   board: z.array(
     z.object({
       role: z.string(),

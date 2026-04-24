@@ -11,15 +11,13 @@ export type MetaConfig = {
     twitterSite?: string | null;
     baseUrl?: string | null;
   };
-  routes: Record<
-    string,
-    {
-      title: string;
-      description: string;
-      ogImage?: string;
-      noindex?: boolean;
-    }
-  >;
+  routes: Array<{
+    path: string;
+    title: string;
+    description: string;
+    ogImage?: string;
+    noindex?: boolean;
+  }>;
 };
 
 export type RouteMeta = {

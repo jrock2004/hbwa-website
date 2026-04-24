@@ -10,6 +10,7 @@ export const CTAItem = LinkItem.extend({
 });
 
 export const RouteMetaSchema = z.object({
+  path: z.string(),
   title: z.string(),
   description: z.string(),
   ogImage: z.string().optional(),
@@ -38,6 +39,7 @@ export const SiteConfigSchema = z.object({
       zip: z.string().optional(),
       poBox: z.string().optional(),
     }),
+    officeHours: z.array(z.object({ days: z.string(), hours: z.string() })).optional(),
   }),
   hero: z.object({
     title: z.string(),
@@ -61,7 +63,7 @@ export const SiteConfigSchema = z.object({
       twitterSite: z.string().nullable().optional(),
       baseUrl: z.string().url().nullable().optional(),
     }),
-    routes: z.record(z.string(), RouteMetaSchema),
+    routes: z.array(RouteMetaSchema),
   }),
   notices: z
     .array(

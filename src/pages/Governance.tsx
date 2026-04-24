@@ -26,6 +26,18 @@ export default function Governance() {
         </p>
       </header>
 
+      {data?.meetingSchedule &&
+        (data.meetingSchedule.schedule || data.meetingSchedule.location) && (
+          <Card title="Meeting Schedule">
+            {data.meetingSchedule.schedule && (
+              <p className="text-sm">{data.meetingSchedule.schedule}</p>
+            )}
+            {data.meetingSchedule.location && (
+              <p className="text-muted-foreground mt-1 text-sm">{data.meetingSchedule.location}</p>
+            )}
+          </Card>
+        )}
+
       <div className="grid auto-rows-fr gap-6 lg:grid-cols-2">
         <Card title="Board Members">
           <DirectoryList items={data?.board ?? []} />

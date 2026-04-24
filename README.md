@@ -12,28 +12,18 @@ The official website for the Honey Brook Water Association.
 
 ## For Non-Developers: Updating Site Content
 
-The website content is managed through simple JSON configuration files. You can update these files to change what appears on the website—no coding knowledge required!
+Website content is managed through the **Decap CMS admin panel** — no coding required.
 
-**📖 [Complete Configuration Guide →](docs/configs.md)**
+**📖 [Content Management Guide →](docs/configs.md)**
 
 ### Quick Start
 
-1. **Find the config files** in the `public/` folder
-2. **Edit the file** you want to change (use VS Code for helpful autocomplete)
-3. **Validate your changes** by running: `pnpm validate`
-4. **Deploy** by committing and pushing to the main branch
+1. Go to [https://hbbawater.com/admin](https://hbbawater.com/admin)
+2. Log in with your Netlify Identity account
+3. Select the section you want to edit and save your changes
+4. The site redeploys automatically (usually 1–2 minutes)
 
-### Available Configuration Files
-
-- **`site.json`** - Site information, SEO metadata, contact info, hero section, quick links
-- **`alerts.json`** - Homepage announcements and alerts
-- **`rates.json`** - Water rates and fees
-- **`governance.json`** - Board members and their roles
-- **`links.json`** - Useful external links
-- **`documents.json`** - Downloadable documents (bylaws, minutes, etc.)
-- **`pictures.json`** - Photo gallery images
-
-For detailed examples and editing tips, see the **[Configuration Guide](docs/configs.md)**
+See the **[Content Management Guide](docs/configs.md)** for a full walkthrough.
 
 ---
 
@@ -57,6 +47,9 @@ pnpm install
 # Start development server
 pnpm dev
 
+# Start dev server + Decap CMS proxy (for local CMS editing)
+pnpm dev:cms
+
 # Validate all config files
 pnpm validate
 
@@ -69,31 +62,37 @@ pnpm preview
 
 ### Architecture
 
-This project uses a **JSON-as-CMS** approach, allowing non-developers to manage content through JSON configuration files.
+This project uses a **JSON-as-CMS** approach — 7 JSON files in `public/` store all site content, and **Decap CMS** provides a web UI for editing them without touching code.
 
 #### Key Components
 
 1. **Config Files** (`public/*.json`)
    - 7 JSON files store all site content
    - Served as static assets
-   - Editable by non-developers
+   - Edited by non-developers via the Decap CMS admin UI
 
-2. **Zod Schemas** (`src/config/*.ts`)
+2. **Decap CMS** (`public/admin/`)
+   - `index.html` + `config.yml` define the admin UI
+   - Uses git-gateway backend — saves directly to the repo
+   - Accessible at `/admin` in production, or locally via `pnpm dev:cms`
+   - Requires Netlify Identity + Git Gateway enabled in Netlify dashboard
+
+3. **Zod Schemas** (`src/config/*.ts`)
    - Define and validate the structure of each config file
    - Provide TypeScript types
    - Located in: `siteConfig.ts`, `metaConfig.ts`, `alertsConfig.ts`, etc.
 
-3. **JSON Schemas** (`schemas/*.json`)
-   - JSON Schema files for IDE autocomplete
+4. **JSON Schemas** (`schemas/*.json`)
+   - JSON Schema files for IDE autocomplete when editing JSON directly
    - VS Code integration via `.vscode/settings.json`
 
-4. **Config Hooks** (`src/hooks/`)
+5. **Config Hooks** (`src/hooks/`)
    - `useJsonConfig<T>` - Generic hook for loading and validating configs
    - 7 specialized hooks delegate to `useJsonConfig`:
      - `useSiteConfig()`, `useMetaConfig()`, `useAlertsConfig()`, etc.
    - Some use adapters to transform the data
 
-5. **Validation Script** (`scripts/validate-configs.ts`)
+6. **Validation Script** (`scripts/validate-configs.ts`)
    - Validates all 7 config files against Zod schemas
    - Runs before build in CI/CD: `pnpm validate && pnpm build`
    - Prevents invalid configs from being deployed
@@ -125,7 +124,10 @@ Configured in `tsconfig.app.json` and `vite.config.ts`.
 hbwa-website/
 ├── public/
 │   ├── *.json                 # Config files (CMS layer)
-│   ├── documents/             # Downloadable PDFs
+│   ├── admin/                 # Decap CMS admin UI
+│   │   ├── index.html
+│   │   └── config.yml         # CMS collections & field definitions
+│   ├── docs/                  # Downloadable PDFs
 │   └── images/                # Gallery images
 ├── schemas/
 │   └── *.json                 # JSON Schema files for IDE support
@@ -164,10 +166,10 @@ To add a new config file:
 
 1. Create the JSON file in `public/`
 2. Define a Zod schema in `src/config/`
-3. Create a JSON Schema file in `schemas/` (optional, for IDE support)
-4. Create a custom hook or use `useJsonConfig` directly
-5. Add validation to `scripts/validate-configs.ts`
-6. Update `.vscode/settings.json` for autocomplete
+3. Create a custom hook or use `useJsonConfig` directly
+4. Add validation to `scripts/validate-configs.ts`
+5. Add a collection to `public/admin/config.yml`
+6. Optionally add a JSON Schema file in `schemas/` and register it in `.vscode/settings.json` for IDE autocomplete
 
 ### Contributing
 
